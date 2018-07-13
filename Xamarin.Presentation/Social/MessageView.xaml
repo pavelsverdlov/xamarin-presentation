@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+      x:Class="Xamarin.Presentation.Social.MessageView"
+      ColumnSpacing="0" RowSpacing="0">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="0" />
+        <ColumnDefinition Width="50" />
+        <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Image Source="{Binding IconSource}" Aspect="AspectFit" Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" 
+           Margin="0,0,5,0" VerticalOptions="Start"/>
+
+    <Label Text="{Binding Title}" TextColor="Black" FontAttributes="Bold" Grid.Column="2" Grid.Row="0"/>
+
+    <Label Text="{Binding Message}" Grid.Column="2" Grid.Row="1" VerticalOptions="StartAndExpand"/>
+
+    <StackLayout Orientation="Horizontal" Spacing="0" Grid.Column="2" Grid.Row="2" 
+                 Margin="0,0,5,0"
+                 HorizontalOptions="EndAndExpand" >
+        <StackLayout.Resources>
+            <ResourceDictionary>
+                <Style TargetType="Label">
+                    <Setter Property="FontSize" Value="12" />
+                </Style>
+            </ResourceDictionary>
+        </StackLayout.Resources>
+        <Label Text="Nov 4 at 4:06 PM" />
+        <Label Text=" • " />
+        <Label Text="Like" TextColor="{DynamicResource Accent}" />
+        <Label Text=" • " />
+        <Label Text="Reply" TextColor="{DynamicResource Accent}" />
+    </StackLayout>
+</Grid>

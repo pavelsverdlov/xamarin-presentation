@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Presentation.Social.ActivityView"
+             Orientation="Vertical" x:Name="activityview">
+    <StackLayout.Resources>
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderWidth" Value="1"/>
+            <Setter Property="BorderRadius" Value="0"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="ContentLayout" Value="Top,10"/>
+            <Setter Property="BorderColor" Value="#cdcdcd"/>
+            <Setter Property="IsVisible" Value="{Binding IsVisible}"/>
+            <Setter Property="Text" Value="{Binding Title}"/>
+            <Setter Property="Image" Value="{Binding Image}"/>
+            <Setter Property="CommandParameter" Value="{Binding}"/>
+            <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>
+            
+        </Style>
+    </StackLayout.Resources>
+    <Grid Margin="10" BindingContext="{Binding ViewState}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Source="icon.png" HeightRequest="50" Grid.Column="0" Grid.RowSpan="2" />
+        <StackLayout VerticalOptions="End" HorizontalOptions="Start" Grid.Column="1" 
+                                 Grid.Row="0" Orientation="Horizontal"
+                                 Margin="5,0,0,0">
+            <Label Text="{Binding ActorName}" FontAttributes="Bold"/>
+            <Label Text=" • "/>
+            <Label Text="{Binding Verb}" />
+        </StackLayout>
+        <StackLayout VerticalOptions="Start" HorizontalOptions="EndAndExpand" Grid.Column="1" 
+                                 Grid.Row="1" Orientation="Horizontal" BindingContext="{Binding Dates}">
+            <Label Text="{Binding DateCreated}"/>
+            <Label Text=" to "/>
+            <Label Text="{Binding DateClosed}"/>
+        </StackLayout>
+    </Grid>
+
+    <Label Margin="10,0,0,10" Text="{Binding ViewState.Body}" LineBreakMode="WordWrap"/>
+
+    <Grid Margin="0,10,0,0" HeightRequest="40">
+        <!--BindingContext="{Binding ViewState.Left}"-->
+        <Button Grid.Column="0" BindingContext="{Binding ViewState.Left}"/>
+        <Button Grid.Column="1" BindingContext="{Binding ViewState.Middle}"/>
+        <Button Grid.Column="2" BindingContext="{Binding ViewState.Right}"/>
+    </Grid>
+    <!--HeightRequest="40"-->
+    <!--<StackLayout Orientation="Horizontal" >
+                    <ff:CachedImage Source="facebookreactionsanimation.gif"/>
+                    <Label Text="1.4 тыс." VerticalOptions="Center"/>
+                </StackLayout>-->
+    <!--<BoxView Style="{StaticResource SeparatorBox}"/>-->
+    <BoxView Style="{StaticResource SeparatorBox}" HeightRequest="10" />
+</StackLayout>
