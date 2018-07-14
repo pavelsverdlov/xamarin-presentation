@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Xamarin.Presentation {
@@ -22,6 +23,14 @@ namespace Xamarin.Presentation {
                 var res = x.Result;
                 Device.BeginInvokeOnMainThread(() => action(res));
             });
+        }
+
+        public static void Invoke<T>(this ICommand source, T param) {
+            var cmd = source;
+            if (cmd.IsNull()) {
+                return;
+            }
+            cmd.Execute(param);
         }
     }
 }

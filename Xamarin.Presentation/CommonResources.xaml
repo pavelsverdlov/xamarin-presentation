@@ -23,6 +23,20 @@
         <Style TargetType="StackLayout">
             <Setter Property="Spacing" Value="0"/>
         </Style>
-        
+
+        <Style TargetType="Button" x:Key="FlatSocialButton">
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="BorderWidth" Value="1"/>
+            <Setter Property="BorderRadius" Value="0"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="ContentLayout" Value="Top,10"/>
+            <Setter Property="BorderColor" Value="#cdcdcd"/>
+            <Setter Property="IsVisible" Value="{Binding IsVisible}"/>
+            <Setter Property="Text" Value="{Binding Title}"/>
+            <Setter Property="Image" Value="{Binding Image}"/>
+        </Style>
+
     </ResourceDictionary>
 </ResourceDictionary>

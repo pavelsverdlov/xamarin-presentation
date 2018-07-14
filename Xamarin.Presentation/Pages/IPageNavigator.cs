@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Presentation.Framework;
+using Xamarin.Presentation.Pages.States;
 
 namespace Xamarin.Presentation.Pages {
     public interface IPageNavigator {
@@ -14,6 +15,7 @@ namespace Xamarin.Presentation.Pages {
     public class PageNavigatorViewModel : BaseNotify, IPageNavigator {
         bool isBusy;
         string title;
+        
         public string Title {
             get => title;
             set => Update(ref title, value);
@@ -27,9 +29,11 @@ namespace Xamarin.Presentation.Pages {
         }
         public IEnumerable<ToolbarItem> ToolbarMenu { get; set; }
         public INavigation Navigation { get; set; }
+        
 
         public PageNavigatorViewModel() {
             ToolbarMenu = new ToolbarItem[0];
+           
         }
     }
 }

@@ -46,6 +46,11 @@ namespace Xamarin.Presentation.Controls.LV {
             InitializeComponent();
             itemSelectedBehavior = new ListViewItemSelectedBehavior();
             pullToRefreshBehavior = new ListViewPullToRefreshBehavior();
+           // ExdListView.ItemSelected += OnItemSelected;
+        }
+
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e) {
+            
         }
     }
 

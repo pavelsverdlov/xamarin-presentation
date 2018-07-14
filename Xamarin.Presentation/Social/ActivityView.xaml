@@ -4,22 +4,10 @@
              x:Class="Xamarin.Presentation.Social.ActivityView"
              Orientation="Vertical" x:Name="activityview">
     <StackLayout.Resources>
-        <Style TargetType="Button">
-            <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="BorderWidth" Value="1"/>
-            <Setter Property="BorderRadius" Value="0"/>
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
-            <Setter Property="ContentLayout" Value="Top,10"/>
-            <Setter Property="BorderColor" Value="#cdcdcd"/>
-            <Setter Property="IsVisible" Value="{Binding IsVisible}"/>
-            <Setter Property="Text" Value="{Binding Title}"/>
-            <Setter Property="Image" Value="{Binding Image}"/>
+        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
             <Setter Property="CommandParameter" Value="{Binding}"/>
             <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>
-            
-        </Style>
+        </Style>        
     </StackLayout.Resources>
     <Grid Margin="10" BindingContext="{Binding ViewState}">
         <Grid.ColumnDefinitions>

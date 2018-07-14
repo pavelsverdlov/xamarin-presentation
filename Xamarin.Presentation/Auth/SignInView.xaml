@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<states:StateContainer xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:states="clr-namespace:Xamarin.Presentation.Pages.States;assembly=Xamarin.Presentation"
+             State="{Binding State}"
+             x:Class="Xamarin.Presentation.Auth.SignInView"
+             >
+    <states:StateCondition State="Loading">
+        <ActivityIndicator IsRunning="True" Color="Blue"  
+                               HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                               />
+    </states:StateCondition>
+
+    <states:StateCondition State="NoInternet">
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="No internet connection" />
+            <Button Command="{Binding RetryConnection}" Text="Retry" />
+        </StackLayout>
+    </states:StateCondition>
+
+    <states:StateCondition State="Error">
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding ErrorMessage}" />
+            <Button Command="{Binding RetryConnection}" Text="Retry" />
+        </StackLayout>
+    </states:StateCondition>
+
+    <states:StateCondition State="Normal">
+        <StackLayout>
+            <Image BackgroundColor="Blue" HeightRequest="150"/>
+            <Frame HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="FillAndExpand">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="English"/>
+                        <!--<Button Margin="10,0,0,0" Text="Change"/>-->
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" Margin="10" VerticalOptions="Center" Spacing="0">
+                        <Entry Placeholder="Username" PlaceholderColor="Gray" Text="{Binding EmailLogin, Mode=TwoWay}"
+                                   Margin="0,10,0,10"/>
+                        <Entry IsPassword="True" Placeholder="Password" Text="{Binding Pass, Mode=TwoWay}" />
+                        <BoxView Style="{StaticResource SeparatorBox}" Margin="0,5,0,0"/>
+
+                        <Button Text="Log in" Command="{Binding Controller.LogIn}" />
+                        <Button Text="Forgot password" Command="{Binding Controller.ForgotPassword}"/>
+
+                        <BoxView Style="{StaticResource SeparatorBox}" Margin="0,5,0,0"/>
+                    </StackLayout>
+
+                    <Button Text="Create new account" Command="{Binding Controller.CreateNewAccount}" Margin="0,10,0,10"/>
+
+                    <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
+                        <Image Source="facebook.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Controller.FacebookAuth}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image Source="google.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Controller.FacebookAuth}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Image Source="vk.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Controller.FacebookAuth}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </states:StateCondition>
+</states:StateContainer>

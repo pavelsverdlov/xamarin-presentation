@@ -18,16 +18,17 @@ namespace Xamarin.Presentation.Controls {
         }
         protected override void OnDetachingFrom(ListView bindable) {
             bindable.ItemSelected -= OnItemSelected;
+            bindable.RemoveBinding(ItemSelectedProperty);
             base.OnAttachedTo(bindable);            
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e) {
-            var cmd = ItemSelected;
-            if (cmd.IsNull()) {
+            var selected = e.SelectedItem;
+            if (selected.IsNull()) {
                 return;
             }
-            var selected = e.SelectedItem;
-            cmd.Execute(selected);
+            ItemSelected.Invoke(selected);
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

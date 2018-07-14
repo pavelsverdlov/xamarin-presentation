@@ -30,7 +30,7 @@ namespace Xamarin.Presentation.Social {
         }
     }
     public class ActivityDetailsViewState : Framework.VSVVM.BaseViewState {
-        public ObservableCollection<MessageViewState> Comments { get; set; }
+        public ObservableCollection<CommentViewState> Comments { get; set; }
         public ActivityDetailsViewState() {
             //Comments.
         }
@@ -41,6 +41,6 @@ namespace Xamarin.Presentation.Social {
 
     //}
     public interface IActivityDetailController {
-        Command<MessageViewState> ItemSelectedCommand { get; }
+        Command<CommentViewState> ItemSelectedCommand { get; }
     }
 }
