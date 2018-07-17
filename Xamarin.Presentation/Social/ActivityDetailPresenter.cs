@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Presentation.Controls;
+using Xamarin.Presentation.Social.Comments;
 using Xamarin.Presentation.Social.States;
 
 namespace Xamarin.Presentation.Social {
@@ -26,13 +27,19 @@ namespace Xamarin.Presentation.Social {
         //}
 
         protected virtual void OnPullToRefreshed() {
-            
+            //Button.ButtonContentLayout.ImagePosition.Left
         }
     }
-    public class ActivityDetailsViewState : Framework.VSVVM.BaseViewState {
+    public class ActivityDetailsViewState : Framework.VSVVM.BaseViewState, ICommentAddingViewState {
         public ObservableCollection<CommentViewState> Comments { get; set; }
+
+        public string CommenterIconSource { get; set; }
+        public string AddCommentEntryPlaceholder { get; set; }
+
         public ActivityDetailsViewState() {
-            //Comments.
+            CommenterIconSource = "person.png";
+            AddCommentEntryPlaceholder = "Write a comment ...";
+            Comments = new ObservableCollection<CommentViewState>();
         }
     }
 
@@ -40,7 +47,7 @@ namespace Xamarin.Presentation.Social {
     //    public Command<ButtonModel> CommentsRefreshCommand;
 
     //}
-    public interface IActivityDetailController {
+    public interface IActivityDetailController : ICommentAddingController {
         Command<CommentViewState> ItemSelectedCommand { get; }
     }
 }

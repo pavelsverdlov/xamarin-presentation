@@ -6,7 +6,7 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamarin.Presentation.Controls.LV {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ExtendedListView : ContentView {
+    public partial class ExtendedListView : ListView {
 
         public static readonly BindableProperty ItemSelectedCommandProperty =
            BindableProperty.CreateAttached(nameof(ItemSelectedCommand), typeof(ICommand), typeof(ExtendedListView), null, propertyChanged: OnItemSelectedPropertyChanged);
@@ -38,11 +38,11 @@ namespace Xamarin.Presentation.Controls.LV {
             set { SetValue(PullToRefreshProperty, value); }
         }
 
-        public DataTemplate ItemTemplate { set { ExdListView.ItemTemplate = value; } }
+     //   public DataTemplate ItemTemplate { set { ExdListView.ItemTemplate = value; } }
 
         readonly ListViewItemSelectedBehavior itemSelectedBehavior;
         readonly ListViewPullToRefreshBehavior pullToRefreshBehavior;
-        public ExtendedListView() {
+        public ExtendedListView():base(ListViewCachingStrategy.RecycleElement) {
             InitializeComponent();
             itemSelectedBehavior = new ListViewItemSelectedBehavior();
             pullToRefreshBehavior = new ListViewPullToRefreshBehavior();
@@ -50,7 +50,7 @@ namespace Xamarin.Presentation.Controls.LV {
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e) {
-            
+            //this.ScrollTo(, ScrollToPosition.End, true);
         }
     }
 

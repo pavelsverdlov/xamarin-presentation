@@ -2,6 +2,7 @@
 <Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Xamarin.Presentation.Social;assembly=Xamarin.Presentation"
+      xmlns:comm="clr-namespace:Xamarin.Presentation.Social.Comments;assembly=Xamarin.Presentation"
              xmlns:crl="clr-namespace:Xamarin.Presentation.Controls;assembly=Xamarin.Presentation"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Xamarin.Presentation.Social.ActivityDetailsPage"
@@ -40,22 +41,5 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-    <BoxView Style="{StaticResource SeparatorBox}" Grid.Row="1"/>
-    <Grid Grid.Row="2" ColumnSpacing="0" RowSpacing="0" Margin="10,0,5,0">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="40" />
-        </Grid.ColumnDefinitions>
-        <StackLayout Orientation="Horizontal" Grid.Column="0">
-            <Image Source="icon.png" Aspect="AspectFit" WidthRequest="40" HorizontalOptions="Start"/>
-            <Entry Placeholder="Оставить комментарий" HorizontalOptions="CenterAndExpand">
-                <!--<Entry.Effects>
-                            <local:NoBorderEntryEffectiOS />
-                        </Entry.Effects>-->
-            </Entry>
-        </StackLayout>
-        <Button Image="camera.png" Grid.Column="1" BorderWidth="0" Margin="5,0,5,0"/>
-        <Button Image="add.png" Grid.Column="2" BorderWidth="0"/>
-    </Grid>
+    <comm:WriteCommentView Margin="10,0,5,0" Grid.Row="2" BindingContext="{Binding DetailViewModel}"/>
 </Grid>

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Presentation.Social.Messaging.PrivateMessagingView"
+             xmlns:comm="clr-namespace:Xamarin.Presentation.Social.Comments;assembly=Xamarin.Presentation"
+             xmlns:social="clr-namespace:Xamarin.Presentation.Social"
+             xmlns:lv="clr-namespace:Xamarin.Presentation.Controls.LV;assembly=Xamarin.Presentation"
+             xmlns:local="clr-namespace:Xamarin.Presentation.Social.Messaging"
+             Orientation="Vertical">
+    <StackLayout.Resources>
+        <local:PrivateMessageTypeToOrientationConverter x:Key="OrientationConverter"/>
+        <Style TargetType="Grid" x:Key="messgr">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="messlabel">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="Text" Value="{Binding Date}" />
+        </Style>
+        <Style TargetType="Frame" x:Key="messframe">
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style TargetType="Label" x:Key="message">
+            <Setter Property="Text" Value="{Binding Message}" />
+            <Setter Property="FontSize" Value="Medium" />
+        </Style>
+        <DataTemplate x:Key="OutgoingPrivateMessage">
+            <ViewCell>
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource messlabel}"/>
+                    <Grid Style="{StaticResource messgr}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="7*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame  Grid.Column="1" Style="{StaticResource messframe}"
+                               OutlineColor="{StaticResource Primary}" BackgroundColor="{StaticResource Accent}">
+                            <Label Style="{StaticResource message}"/>
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="IncomingPrivateMessage">
+            <ViewCell>
+                <StackLayout Orientation="Vertical">
+                    <Label Style="{StaticResource messlabel}"/>
+                    <Grid Style="{StaticResource messgr}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="7*" />
+                            <ColumnDefinition Width="3*" />
+                        </Grid.ColumnDefinitions>
+                        <Frame OutlineColor="LightGray"
+                               Style="{StaticResource messframe}"  Grid.Column="0">
+                            <Label Style="{StaticResource message}"/>
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+        <local:MessageDataTemplateSelector x:Key="PrivateMessage"
+                                           OutgoingMessageTemplate="{StaticResource OutgoingPrivateMessage}"
+                                           IncomingMessageTemplate="{StaticResource IncomingPrivateMessage}"
+            />
+    </StackLayout.Resources>
+
+    <social:AccountShortInfoView BindingContext="{Binding}" HorizontalOptions="FillAndExpand" />
+
+    <lv:ExtendedListView     VerticalOptions="FillAndExpand" 
+                             ItemTemplate="{StaticResource PrivateMessage}"
+                             ItemSelectedCommand="{Binding Controller.ItemSelectedCommand}"
+                             PullToRefresh="{Binding PullToRefresh}"
+                             BindingContext="{Binding}" 
+                             />
+    <comm:WriteCommentView  />
+</StackLayout>

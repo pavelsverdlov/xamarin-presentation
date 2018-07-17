@@ -6,7 +6,9 @@ using Xamarin.Forms;
 using Xamarin.Presentation.Framework;
 
 namespace Xamarin.Presentation.Controls {
-    public class ListViewPullToRefreshViewModel : BaseNotify {
+    public interface IListViewPullToRefresh { }
+
+    public class ListViewPullToRefreshViewModel : BaseNotify, IListViewPullToRefresh {
         public bool IsEnabled { get; set; }
         private bool isRefreshing = false;
         public bool IsRefreshing {

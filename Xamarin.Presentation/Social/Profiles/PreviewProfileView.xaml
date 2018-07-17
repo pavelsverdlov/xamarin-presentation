@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:lv="clr-namespace:Xamarin.Presentation.Controls.LV;assembly=Xamarin.Presentation"
+             x:Class="Xamarin.Presentation.Social.Profiles.PreviewProfileView">
+    <ScrollView.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+            <!--<Setter Property="CommandParameter" Value="{Binding}"/>
+            <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>-->
+        </Style>
+        <DataTemplate x:Key="ProfilePropertiesKey">
+            <ViewCell>
+                <StackLayout Orientation="Horizontal" Margin="5" BackgroundColor="Transparent" >
+                    <Label Text="{Binding Property}" FontSize="Medium"/>
+                    <Label Text="{Binding Value}" FontSize="Medium" Margin="10,0,0,0"/>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+    </ScrollView.Resources>
+    <StackLayout Spacing="0" Padding="0" BackgroundColor="Transparent" VerticalOptions="StartAndExpand">
+        <ffimageloading:CachedImage HeightRequest="80" WidthRequest="80" Margin="0,5,0,0"
+                                    HorizontalOptions="Center" VerticalOptions="Start"
+                                    Aspect="AspectFit" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0"
+                                    DownsampleToViewSize="true" Source="{Binding ViewState.IconSource}"/>
+        
+        <Label Text="{Binding ViewState.ProfileName}" FontSize="28" HorizontalOptions="Center" VerticalOptions="Center" 
+               FontAttributes="Bold" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Text="Activity Log" Grid.Column="0"/>
+            <Button Text="Message" Grid.Column="1"/>
+        </Grid>
+        <BoxView Style="{StaticResource SeparatorBox}" Margin="0,10,0,0"/>
+        <ListView ItemTemplate="{StaticResource ProfilePropertiesKey}" ItemsSource="{Binding ViewState.ProfileProperties}" Margin="10"
+                  BackgroundColor="Transparent">
+            <ListView.Triggers>
+                <EventTrigger Event="ItemSelected">
+                    <lv:DeselectListViewItemTriggerAction />
+                </EventTrigger>
+            </ListView.Triggers>
+        </ListView>
+    </StackLayout>
+</ScrollView>

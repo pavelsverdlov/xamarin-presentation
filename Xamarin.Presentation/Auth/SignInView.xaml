@@ -5,6 +5,11 @@
              State="{Binding State}"
              x:Class="Xamarin.Presentation.Auth.SignInView"
              >
+    <states:StateContainer.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+            
+        </Style>
+    </states:StateContainer.Resources>
     <states:StateCondition State="Loading">
         <ActivityIndicator IsRunning="True" Color="Blue"  
                                HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
@@ -27,14 +32,15 @@
 
     <states:StateCondition State="Normal">
         <StackLayout>
-            <Image BackgroundColor="Blue" HeightRequest="150"/>
-            <Frame HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="FillAndExpand">
+            <Image BackgroundColor="White" Source="app_big_icon.ipg" HeightRequest="200"/>
+            <Frame HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="FillAndExpand" 
+                   BackgroundColor="Transparent">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                         <Label Text="English"/>
                         <!--<Button Margin="10,0,0,0" Text="Change"/>-->
                     </StackLayout>
-                    <StackLayout Orientation="Vertical" Margin="10" VerticalOptions="Center" Spacing="0">
+                    <StackLayout Orientation="Vertical" Margin="10,10,10,0" VerticalOptions="Center" Spacing="0">
                         <Entry Placeholder="Username" PlaceholderColor="Gray" Text="{Binding EmailLogin, Mode=TwoWay}"
                                    Margin="0,10,0,10"/>
                         <Entry IsPassword="True" Placeholder="Password" Text="{Binding Pass, Mode=TwoWay}" />
@@ -46,7 +52,8 @@
                         <BoxView Style="{StaticResource SeparatorBox}" Margin="0,5,0,0"/>
                     </StackLayout>
 
-                    <Button Text="Create new account" Command="{Binding Controller.CreateNewAccount}" Margin="0,10,0,10"/>
+                    <Button Text="Create new account" Command="{Binding Controller.CreateNewAccount}"
+                            BackgroundColor="{StaticResource Accent}" Margin="0,10,0,10"/>
 
                     <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
                         <Image Source="facebook.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">

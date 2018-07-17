@@ -2,10 +2,10 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Xamarin.Presentation.Social {
+namespace Xamarin.Presentation.Social.Profiles {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddNewActivityView : Grid {
-        public AddNewActivityView() {
+    public partial class EditProfileView : ScrollView {
+        public EditProfileView() {
             InitializeComponent();
         }
     }

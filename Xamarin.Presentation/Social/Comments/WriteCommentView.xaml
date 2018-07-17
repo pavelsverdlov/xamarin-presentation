@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="Xamarin.Presentation.Social.Comments.WriteCommentView"
+      ColumnSpacing="0" RowSpacing="0">
+    <Grid.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+            <!--<Setter Property="CommandParameter" Value="{Binding}"/>
+            <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>-->
+        </Style>
+    </Grid.Resources>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="40"/>
+        <ColumnDefinition Width="40" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <BoxView Style="{StaticResource SeparatorBox}" Grid.ColumnSpan="3" Grid.Row="0"/>
+    <StackLayout Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+        <Image Source="{Binding ViewState.CommenterIconSource}" Aspect="AspectFit" WidthRequest="40" HorizontalOptions="Start"/>
+        <Entry x:Name="entrymess" Placeholder="{Binding ViewState.AddCommentEntryPlaceholder}" HorizontalOptions="FillAndExpand"
+               ReturnCommand="{Binding Controller.CommentAdded}" ReturnCommandParameter="{Binding Source={x:Reference entrymess}}"
+               IsSpellCheckEnabled="True" ReturnType="Send">
+            <!--<Entry.Effects>
+                            <local:NoBorderEntryEffectiOS />
+                        </Entry.Effects>-->
+        </Entry>
+    </StackLayout>
+    <Button Image="camera.png" Grid.Column="1" BorderWidth="0" Margin="5,0,5,0" Grid.Row="1" Command="{Binding Controller.CameraActivated}"/>
+    <Button Image="add.png" Grid.Column="2" BorderWidth="0" Grid.Row="1" Command="{Binding Controller.AttachFileActivated}"/>
+</Grid>

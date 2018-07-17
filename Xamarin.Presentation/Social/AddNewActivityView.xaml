@@ -1,34 +1,68 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
+<Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:local="clr-namespace:Xamarin.Presentation.Social"
              x:Class="Xamarin.Presentation.Social.AddNewActivityView"
-             Orientation="Vertical"
               x:Name="addnewactivityview">
-    <StackLayout.Resources>
-        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+    <Grid.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource PrimarySocialButton}">
             <Setter Property="Command" Value="{Binding Source={x:Reference Name=addnewactivityview}, Path=BindingContext.Controller.AddClickCommand}"/>
         </Style>
-    </StackLayout.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0" />
-            <ColumnDefinition Width="50" />
-        </Grid.ColumnDefinitions>
-        <!---->
-        <Image Source="{Binding ViewState.IconSource}" Aspect="AspectFit" Grid.Column="1" Grid.RowSpan="3" Grid.Row="0" 
-           Margin="0,0,5,0" VerticalOptions="Start"/>
+        <Style TargetType="Label" BasedOn="{StaticResource EditEntryTitleLabel}">
+            
+        </Style>
+    </Grid.Resources>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
 
-        <Label Text="{Binding ViewState.UserName}" TextColor="Black" FontAttributes="Bold" Grid.Column="2" Grid.Row="0"/>
+    <StackLayout Orientation="Vertical" Grid.Row="0"  Spacing="0">
+        <local:AccountShortInfoView BindingContext="{Binding}" HorizontalOptions="FillAndExpand" Grid.Row="0"/>
+        
+        <Label Text="Title"/> 
+        <Entry Placeholder="Cleaning of the yard."/>
 
-        <Label Text="{Binding ViewState.Info}" Grid.Column="2" Grid.Row="1" VerticalOptions="StartAndExpand"/>
-    </Grid>
-    <Entry MinimumHeightRequest="100"/>
-    <Label Text="Photo/Video"/>
-    <Label Text="Add location"/>
-    <Label Text="Dates"/>
-    <Button BindingContext="{Binding ViewState.Add}"/>
-</StackLayout>
+        <Label Text="Rubric"/>
+        <Picker Title="Rubric" SelectedIndex="0">
+            <Picker.Items>
+                <x:String>- None selected -</x:String>
+                <x:String>Travelling</x:String>
+                <x:String>Payments</x:String>
+                <x:String>Group change</x:String>
+            </Picker.Items>
+        </Picker>
+        
+    </StackLayout>
+
+    <Editor VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Accent}" Grid.Row="1"/>
+
+    <StackLayout Orientation="Vertical" Grid.Row="2" Spacing="0">
+        <Label Text="Finish date: " />
+        <DatePicker VerticalOptions="FillAndExpand" Date="{x:Static system:DateTime.Now}">
+             <DatePicker.Format>MMMM d yyyy</DatePicker.Format>
+             <DatePicker.MinimumDate>
+                 <system:DateTime x:FactoryMethod="Parse">
+                     <x:Arguments>
+                         <x:String>Jan 1 2000</x:String>
+                     </x:Arguments>
+                 </system:DateTime>
+             </DatePicker.MinimumDate>
+             <DatePicker.MaximumDate>
+                 <system:DateTime x:FactoryMethod="Parse">
+                     <x:Arguments>
+                         <x:String>Dec 31 2050</x:String>
+                     </x:Arguments>
+                 </system:DateTime>
+             </DatePicker.MaximumDate>
+         </DatePicker>
+
+        <Label Text="Photo/Video" TextColor="{StaticResource Primary}" Margin="10,0,10,0" Grid.Row="5"/>
+        <Label Text="Add location"  TextColor="{StaticResource Primary}" Margin="10,0,10,0" Grid.Row="6"/>
+        
+        <Button BindingContext="{Binding ViewState.Add}" Margin="10" Grid.Row="7" />
+    </StackLayout>
+    
+</Grid>

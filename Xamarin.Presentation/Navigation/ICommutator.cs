@@ -44,7 +44,7 @@ namespace Xamarin.Presentation.Navigation {
 
         public async Task<TViewModel> GoToPage<TViewModel>(INavigation nav) where TViewModel : class {
             var displayPage = container.GetView<TViewModel, Page>();
-
+            
             await nav.PushAsync(displayPage);
 
             return (TViewModel)displayPage.BindingContext;

@@ -19,7 +19,7 @@
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <ffimageloading:CachedImage HeightRequest="60" WidthRequest="60"
+    <ffimageloading:CachedImage HeightRequest="50" WidthRequest="50"
                                     Aspect="AspectFit" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0"
                                     DownsampleToViewSize="true" Source="{Binding IconSource}"/>
 

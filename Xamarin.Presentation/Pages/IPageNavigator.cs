@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Presentation.Framework;
-using Xamarin.Presentation.Pages.States;
 
 namespace Xamarin.Presentation.Pages {
+    public interface IPageNavigatorSupporting {
+        IPageNavigator Page { get; }
+    }
+
     public interface IPageNavigator {
         string Title { get; set; }
         string IconSource { get; }
@@ -11,11 +14,15 @@ namespace Xamarin.Presentation.Pages {
         IEnumerable<ToolbarItem> ToolbarMenu { get; }
         INavigation Navigation { get; set; }
     }
+    public interface IMasterDetailPageNavigator : IPageNavigator {
+        bool IsPresented { get; set; }
+    }
 
-    public class PageNavigatorViewModel : BaseNotify, IPageNavigator {
-        bool isBusy;
-        string title;
-        
+    public class PageNavigatorViewModel : BaseNotify, IPageNavigator, IMasterDetailPageNavigator {
+        private bool isBusy;
+        private bool isPresented;
+        private string title;
+
         public string Title {
             get => title;
             set => Update(ref title, value);
@@ -27,13 +34,19 @@ namespace Xamarin.Presentation.Pages {
                 Update(ref isBusy, value);
             }
         }
+        public bool IsPresented {
+            get => isPresented;
+            set {
+                Update(ref isPresented, value);
+            }
+        }
         public IEnumerable<ToolbarItem> ToolbarMenu { get; set; }
         public INavigation Navigation { get; set; }
-        
+
 
         public PageNavigatorViewModel() {
             ToolbarMenu = new ToolbarItem[0];
-           
+
         }
     }
 }
