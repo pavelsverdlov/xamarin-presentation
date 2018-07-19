@@ -25,6 +25,8 @@
             <Label Text="{Binding ActorName}" FontAttributes="Bold"/>
             <Label Text=" • "/>
             <Label Text="{Binding Verb}" />
+            <Label Text=" "/>
+            <Label Text="{Binding Title}" FontAttributes="Bold" />
         </StackLayout>
         <StackLayout VerticalOptions="Start" HorizontalOptions="EndAndExpand" Grid.Column="1" 
                                  Grid.Row="1" Orientation="Horizontal" BindingContext="{Binding Dates}">
@@ -40,7 +42,7 @@
         <!--BindingContext="{Binding ViewState.Left}"-->
         <Button Grid.Column="0" BindingContext="{Binding ViewState.Left}"/>
         <Button Grid.Column="1" BindingContext="{Binding ViewState.Middle}"/>
-        <Button Grid.Column="2" BindingContext="{Binding ViewState.Right}"/>
+        <!--<Button Grid.Column="2" BindingContext="{Binding ViewState.Right}"/>-->
     </Grid>
     <!--HeightRequest="40"-->
     <!--<StackLayout Orientation="Horizontal" >

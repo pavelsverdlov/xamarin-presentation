@@ -27,6 +27,6 @@
                                        FontAttributes="Bold" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"/>
     <Label Text="{Binding Info}" Grid.Column="1" Grid.Row="1"/>
 
-    <Button x:Name="AddFriendBtn" Text="Add friend" HorizontalOptions="FillAndExpand" Grid.Column="1" Grid.Row="2"/>
+    <Button x:Name="AddFriendBtn" Text="Add" HorizontalOptions="FillAndExpand" Grid.Column="1" Grid.Row="2"/>
     <Button x:Name="RemoveFriendBtn" Text="Remove" HorizontalOptions="FillAndExpand" Grid.Column="2" Grid.Row="2"/>
 </Grid>

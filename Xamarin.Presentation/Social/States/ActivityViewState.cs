@@ -11,7 +11,7 @@
         public ButtonModel Right { get; set; }
 
         public ActivityViewState() {
-            Left = new ButtonModel { IsVisible = true, Image = "Like.png", Title="11" };
+            Left = new ButtonModel { IsVisible = true, Image = "Like.png" };
             Middle = new ButtonModel { IsVisible = true, Image = "Comments.png" };
             Right = new ButtonModel { IsVisible = true, Image = "Share.png" };
         }

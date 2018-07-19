@@ -15,16 +15,25 @@ namespace Xamarin.Presentation.Pages {
                 return;
             }
 
-            bindable.Icon = this.Page.IconSource;
-            
+            bindable.SetBinding(ContentPage.IconProperty, new Binding(nameof(this.Page.IconSource), BindingMode.OneWay, source: this.Page));
             bindable.SetBinding(ContentPage.TitleProperty, new Binding(nameof(this.Page.Title), BindingMode.OneWay, source: this.Page));
-            bindable.SetBinding(ContentPage.IsBusyProperty, nameof(this.Page.IsBusy), BindingMode.OneWay);
+            bindable.SetBinding(ContentPage.IsBusyProperty, new Binding(nameof(this.Page.IsBusy), BindingMode.OneWay, source: this.Page));
 
             foreach (var item in this.Page.ToolbarMenu) {
                 bindable.ToolbarItems.Add(item);
             }
 
             this.Page.Navigation = bindable.Navigation;
+
+            if(bindable.Navigation is NavigationPage navigation) {
+                //this.Page.Navigation = navigation;
+                navigation.SetBinding(NavigationPage.IconProperty, new Binding(nameof(this.Page.IconSource), BindingMode.OneWay, source: this.Page));
+                navigation.SetBinding(NavigationPage.TitleProperty, new Binding(nameof(this.Page.Title), BindingMode.OneWay, source: this.Page));
+                //NavigationPage.SetTitleIcon(bindable, new FileImageSource() { File="person.png" });
+            } else {
+              //  var nav = new NavigationPage(bindable);
+               // this.Page.Navigation = nav;
+            }
         }
     }
     /// <summary>
@@ -52,6 +61,7 @@ namespace Xamarin.Presentation.Pages {
 
             bindable.Icon = this.Page.IconSource;
 
+            bindable.SetBinding(MasterDetailPage.IconProperty, new Binding(nameof(this.Page.IconSource), BindingMode.OneWay, source: this.Page));
             bindable.SetBinding(MasterDetailPage.TitleProperty, new Binding(nameof(this.Page.Title), BindingMode.OneWay, source: this.Page));
             bindable.SetBinding(MasterDetailPage.IsBusyProperty, new Binding(nameof(this.Page.IsBusy), BindingMode.OneWay, source: this.Page));
             bindable.SetBinding(MasterDetailPage.IsPresentedProperty, new Binding(nameof(this.Page.IsPresented), BindingMode.OneWay, source: this.Page));

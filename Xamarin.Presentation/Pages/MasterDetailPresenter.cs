@@ -3,33 +3,30 @@ using Xamarin.Forms;
 using Xamarin.Presentation.Framework.VSVVM;
 
 namespace Xamarin.Presentation.Pages {
-    public abstract class MasterDetailPresenter : BasePresenter<MasterDetailViewState, MasterDetailController> {
+    public abstract class MasterDetailPresenter<TController> :
+        BasePresenter<MasterDetailViewState, TController> where TController : MasterDetailController, new() {
         public IMasterDetailPageNavigator Page { get; }
 
         public MasterDetailPresenter() {
             Page = new PageNavigatorViewModel();
         }
 
-        protected override void Init(MasterDetailViewState vs, MasterDetailController con) {
-            base.Init(vs, con);
-            con.Presenter = this;
-        }
-
-        public abstract void OnMenuSelected(NavPageMenuItem item);
+        //protected override void Init(MasterDetailViewState vs, MasterDetailController con) {
+        //    base.Init(vs, con);
+        //    con.Presenter = this;
+        //}
 
     }
 
-    public class MasterDetailController : BaseController {
-        internal MasterDetailPresenter Presenter;
+    public abstract class MasterDetailController : BaseController {
+        //internal MasterDetailPresenter Presenter;
 
         public Command<NavPageMenuItem> ItemSelectedCommand { get; }
         public MasterDetailController() {
             ItemSelectedCommand = new Command<NavPageMenuItem>(OnItemSelected);
         }
 
-        private void OnItemSelected(NavPageMenuItem item) {
-            Presenter.OnMenuSelected(item);
-        }
+        protected abstract void OnItemSelected(NavPageMenuItem item);
     }
 
     public class MasterDetailViewState : BaseViewState {

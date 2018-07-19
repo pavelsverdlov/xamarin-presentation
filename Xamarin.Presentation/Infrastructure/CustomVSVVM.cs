@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Presentation.Controls;
 using Xamarin.Presentation.Framework.VSVVM;
@@ -8,9 +9,12 @@ namespace Xamarin.Presentation.Infrastructure {
         Command<TItem> ItemSelectedCommand { get; }
     }
     public class CollectionViewState<TItem> : BaseViewState {
-        public List<TItem> ViewCollection { get; set; }
+        /// <summary>
+        /// No needed to PUSH ObservableCollection because it supports notification to View itself
+        /// </summary>
+        public ObservableCollection<TItem> ViewCollection { get; }
         public CollectionViewState() {
-            ViewCollection = new List<TItem>();
+            ViewCollection = new ObservableCollection<TItem>();
         }
     }
 

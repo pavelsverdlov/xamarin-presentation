@@ -4,12 +4,12 @@ using Xamarin.Presentation.Framework;
 
 namespace Xamarin.Presentation.Pages {
     public interface IPageNavigatorSupporting {
-        IPageNavigator Page { get; }
+        IPageNavigator PageNavigator { get; }
     }
 
     public interface IPageNavigator {
         string Title { get; set; }
-        string IconSource { get; }
+        string IconSource { get; set; }
         bool IsBusy { get; }
         IEnumerable<ToolbarItem> ToolbarMenu { get; }
         INavigation Navigation { get; set; }
@@ -19,15 +19,19 @@ namespace Xamarin.Presentation.Pages {
     }
 
     public class PageNavigatorViewModel : BaseNotify, IPageNavigator, IMasterDetailPageNavigator {
-        private bool isBusy;
-        private bool isPresented;
-        private string title;
+        bool isBusy;
+        bool isPresented;
+        string title;
+        string iconSource;
 
         public string Title {
             get => title;
             set => Update(ref title, value);
         }
-        public string IconSource { get; set; }
+        public string IconSource {
+            get => iconSource;
+            set => Update(ref iconSource, value);
+        }
         public override bool IsBusy {
             get => isBusy;
             set {

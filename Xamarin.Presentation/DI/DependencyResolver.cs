@@ -32,6 +32,10 @@ namespace Xamarin.Presentation.DI {
             return (TView)Activator.CreateInstance(mapperToView[typeof(TVM)]);
         }
 
+        public Page GetView(Type type) {
+            return (Page)Activator.CreateInstance(type);
+        }
+
     }
     public abstract class DependencyResolver {
         private readonly Dictionary<Type, Func<object>> dictionary;
