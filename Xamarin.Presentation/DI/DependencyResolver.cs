@@ -29,7 +29,8 @@ namespace Xamarin.Presentation.DI {
         }
 
         public TView GetView<TVM, TView>() where TVM : class {
-            return (TView)Activator.CreateInstance(mapperToView[typeof(TVM)]);
+            var tview = mapperToView[typeof(TVM)];
+            return (TView)Activator.CreateInstance(tview);
         }
 
         public Page GetView(Type type) {

@@ -9,6 +9,9 @@
           
           HasUnevenRows="true"
           >
+    <ListView.Footer>
+        <BoxView Style="{StaticResource SeparatorBox}" HeightRequest="10" />
+    </ListView.Footer>
     <!--<ListView x:Name="ExdListView"
           ItemsSource="{Binding ViewState.ViewCollection}"
           VerticalOptions="FillAndExpand"

@@ -66,6 +66,8 @@ namespace Xamarin.Presentation.Pages {
             bindable.SetBinding(MasterDetailPage.IsBusyProperty, new Binding(nameof(this.Page.IsBusy), BindingMode.OneWay, source: this.Page));
             bindable.SetBinding(MasterDetailPage.IsPresentedProperty, new Binding(nameof(this.Page.IsPresented), BindingMode.OneWay, source: this.Page));
 
+            var dd = Application.Current.MainPage;
+
             foreach (var item in this.Page.ToolbarMenu) {
                 bindable.ToolbarItems.Add(item);
             }

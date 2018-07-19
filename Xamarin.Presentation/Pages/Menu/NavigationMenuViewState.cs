@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace Xamarin.Presentation.Pages {
+namespace Xamarin.Presentation.Pages.Menu {
     public class NavMenuPageViewState {
         public string AccountStatus { get; set; }
         public string AccountName { get; set; }
@@ -18,5 +18,12 @@ namespace Xamarin.Presentation.Pages {
         public string Image { get; set; }
 
         public Type TargetType { get; set; }
+    }
+
+    public class GroupNavMenuItem : List<NavPageMenuItem> { //https://xamarinhelp.com/xamarin-forms-listview-grouping/
+        public string GroupHeader { get; set; }
+        public List<NavPageMenuItem> Items => this;
+        public GroupNavMenuItem() {
+        }
     }
 }

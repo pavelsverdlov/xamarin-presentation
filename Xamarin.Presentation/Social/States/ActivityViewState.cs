@@ -1,6 +1,7 @@
 ﻿namespace Xamarin.Presentation.Social.States {
     public class ActivityViewState : Framework.VSVVM.BaseViewState {
         public string Title { get; set; }
+        public string ActorImage { get; set; }
         public string ActorName { get; set; }
         public string Verb { get; set; }
         public ActivityDatesState Dates { get; set; }
@@ -11,6 +12,7 @@
         public ButtonModel Right { get; set; }
 
         public ActivityViewState() {
+            ActorImage = "person.png";
             Left = new ButtonModel { IsVisible = true, Image = "Like.png" };
             Middle = new ButtonModel { IsVisible = true, Image = "Comments.png" };
             Right = new ButtonModel { IsVisible = true, Image = "Share.png" };

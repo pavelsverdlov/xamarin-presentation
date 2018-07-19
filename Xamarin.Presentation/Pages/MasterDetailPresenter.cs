@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Presentation.Framework.VSVVM;
+using Xamarin.Presentation.Pages.Menu;
 
 namespace Xamarin.Presentation.Pages {
     public abstract class MasterDetailPresenter<TController> :

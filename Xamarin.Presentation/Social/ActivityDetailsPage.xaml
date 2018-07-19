@@ -40,6 +40,10 @@
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
+        <ListView.Footer>
+            <BoxView Style="{StaticResource SeparatorBox}" HeightRequest="20" />
+        </ListView.Footer>
     </ListView>
+    
     <comm:WriteCommentView Margin="10,0,5,0" Grid.Row="2" BindingContext="{Binding DetailViewModel}"/>
 </Grid>
