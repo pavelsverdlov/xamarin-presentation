@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using Xamarin.Forms;
+using Xamarin.Presentation.Social.Activities;
 using Xamarin.Presentation.Social.States;
 
 namespace Xamarin.Presentation.Social {
@@ -9,6 +11,6 @@ namespace Xamarin.Presentation.Social {
         ButtonModel Add { get; }
     }
     public interface IAddNewActivityController {
-        ICommand AddClickCommand { get; }
+        Command<NewActivitySnapshot> ShareActivity { get; }
     }
 }

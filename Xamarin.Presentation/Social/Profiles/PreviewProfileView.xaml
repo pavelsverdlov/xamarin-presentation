@@ -31,7 +31,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Text="Activity Log" Grid.Column="0"/>
+            <Button Text="Email" Grid.Column="0"/>
             <Button Text="Message" Grid.Column="1"/>
         </Grid>
         <BoxView Style="{StaticResource SeparatorBox}" Margin="0,10,0,0"/>

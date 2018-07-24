@@ -20,7 +20,7 @@ namespace Xamarin.Presentation.Controls.LV {
 
         public ICommand ItemSelectedCommand {
             get { return (ICommand)GetValue(ItemSelectedCommandProperty); }
-            set { SetValue(PullToRefreshProperty, value); }
+            set { SetValue(ItemSelectedCommandProperty, value); }
         }
 
         public static readonly BindableProperty PullToRefreshProperty =

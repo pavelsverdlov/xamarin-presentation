@@ -32,21 +32,32 @@
 
     <states:StateCondition State="Normal">
         <StackLayout>
-            <Image BackgroundColor="White" Source="app_big_icon.ipg" HeightRequest="200"/>
+            <Image BackgroundColor="White" Source="app_big_icon.png" HeightRequest="200"/>
             <Frame HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="FillAndExpand" 
-                   BackgroundColor="Transparent">
+                   BackgroundColor="White">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                         <Label Text="English"/>
                         <!--<Button Margin="10,0,0,0" Text="Change"/>-->
                     </StackLayout>
                     <StackLayout Orientation="Vertical" Margin="10,10,10,0" VerticalOptions="Center" Spacing="0">
-                        <Entry Placeholder="Username" PlaceholderColor="Gray" Text="{Binding EmailLogin, Mode=TwoWay}"
+                        <Entry x:Name="login" Placeholder="Username" PlaceholderColor="Gray" Text="{Binding EmailLogin, Mode=TwoWay}"
                                    Margin="0,10,0,10"/>
-                        <Entry IsPassword="True" Placeholder="Password" Text="{Binding Pass, Mode=TwoWay}" />
+                        <Entry x:Name="pass" IsPassword="True" Placeholder="Password" Text="{Binding Pass, Mode=TwoWay}" />
                         <BoxView Style="{StaticResource SeparatorBox}" Margin="0,5,0,0"/>
 
-                        <Button Text="Log in" Command="{Binding Controller.LogIn}" />
+                        <Button Text="Log in" Command="{Binding Controller.LogIn}" >
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Source={x:Reference login},Path=Text.Length}" Value="0" />
+                                        <BindingCondition Binding="{Binding Source={x:Reference pass},Path=Text.Length}" Value="0" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        
                         <Button Text="Forgot password" Command="{Binding Controller.ForgotPassword}"/>
 
                         <BoxView Style="{StaticResource SeparatorBox}" Margin="0,5,0,0"/>

@@ -1,5 +1,21 @@
-﻿namespace Xamarin.Presentation.Social.States {
+﻿using Xamarin.Forms;
+
+namespace Xamarin.Presentation.Social.States {
     public class ActivityViewState : Framework.VSVVM.BaseViewState {
+        public FormattedString Header {
+            get {
+                return new FormattedString {
+                    Spans = {
+                        new Span { Text = ActorName, FontAttributes = FontAttributes.Bold },
+                        new Span { Text = " • " },
+                        new Span { Text = Verb },
+                        new Span { Text = " " },
+                        new Span { Text = Title, FontAttributes = FontAttributes.Bold },
+                    }
+                };
+            }
+        }
+
         public string Title { get; set; }
         public string ActorImage { get; set; }
         public string ActorName { get; set; }
@@ -27,7 +43,9 @@
                         DateCreated = state.Dates.DateCreated,
                         DateClosed = state.Dates.DateClosed,
                 }),
-                (nameof(Verb), state.Verb));
+                (nameof(Verb), state.Verb)
+                );
+            base.ForcePush(nameof(Header));
         }
     }
 }

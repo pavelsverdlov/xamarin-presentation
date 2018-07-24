@@ -9,7 +9,7 @@ namespace Xamarin.Presentation.Pages {
         public IMasterDetailPageNavigator Page { get; }
 
         public MasterDetailPresenter() {
-            Page = new PageNavigatorViewModel();
+            Page = new MasterDetailDecorator();
         }
 
         //protected override void Init(MasterDetailViewState vs, MasterDetailController con) {

@@ -2,12 +2,15 @@
 <Grid xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:system="clr-namespace:System;assembly=System.Runtime"
+      
+             xmlns:act="clr-namespace:Xamarin.Presentation.Social.Activities"
              xmlns:local="clr-namespace:Xamarin.Presentation.Social"
              x:Class="Xamarin.Presentation.Social.AddNewActivityView"
               x:Name="addnewactivityview">
     <Grid.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource PrimarySocialButton}">
-            <Setter Property="Command" Value="{Binding Source={x:Reference Name=addnewactivityview}, Path=BindingContext.Controller.AddClickCommand}"/>
+            <!--<Setter Property="Command" Value="{Binding Source={x:Reference Name=addnewactivityview}, Path=BindingContext.Controller.ShareActivity}"/>
+            <Setter Property="CommandParameter" Value="{Binding Converter=}"-->
         </Style>
         <Style TargetType="Label" BasedOn="{StaticResource EditEntryTitleLabel}">
             
@@ -22,11 +25,11 @@
     <StackLayout Orientation="Vertical" Grid.Row="0"  Spacing="0">
         <local:AccountShortInfoView BindingContext="{Binding}" HorizontalOptions="FillAndExpand" Grid.Row="0"/>
         
-        <Label Text="Title"/> 
-        <Entry Placeholder="Cleaning of the yard."/>
+        <Label Text="Title"/>
+        <Entry Placeholder="Cleaning of the yard." x:Name="titleEntry"/>
 
         <Label Text="Rubric"/>
-        <Picker Title="Rubric" SelectedIndex="0">
+        <Picker Title="Rubric" SelectedIndex="0" x:Name="rubric">
             <Picker.Items>
                 <x:String>- None selected -</x:String>
                 <x:String>Travelling</x:String>
@@ -37,11 +40,11 @@
         
     </StackLayout>
 
-    <Editor VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Accent}" Grid.Row="1"/>
+    <Editor x:Name="body" VerticalOptions="FillAndExpand" BackgroundColor="{StaticResource Accent}" Grid.Row="1"/>
 
     <StackLayout Orientation="Vertical" Grid.Row="2" Spacing="0">
         <Label Text="Finish date: " />
-        <DatePicker VerticalOptions="FillAndExpand" Date="{x:Static system:DateTime.Now}">
+        <DatePicker VerticalOptions="FillAndExpand" Date="{x:Static system:DateTime.Now}" x:Name="date">
              <DatePicker.Format>MMMM d yyyy</DatePicker.Format>
              <DatePicker.MinimumDate>
                  <system:DateTime x:FactoryMethod="Parse">
@@ -61,8 +64,21 @@
 
         <Label Text="Photo/Video" TextColor="{StaticResource Primary}" Margin="10,0,10,0" Grid.Row="5"/>
         <Label Text="Add location"  TextColor="{StaticResource Primary}" Margin="10,0,10,0" Grid.Row="6"/>
-        
-        <Button BindingContext="{Binding ViewState.Add}" Margin="10" Grid.Row="7" />
+
+        <Button BindingContext="{Binding ViewState.Add}" Margin="10" Grid.Row="7" Command="{Binding Source={x:Reference Name=addnewactivityview}, Path=BindingContext.Controller.ShareActivity}">
+            <Button.CommandParameter>
+                <act:ActivitySnapshotMarkup>
+                    <act:ActivitySnapshotMarkup.Data>
+                        <act:NewActivitySnapshot 
+                            Title="{Binding Source={x:Reference titleEntry}, Path=Text}"
+                            Body="{Binding Source={x:Reference body}, Path=Text}"
+                            Rubric="{Binding Source={x:Reference rubric}, Path=SelectedItem}"
+                            FinishDate="{Binding Source={x:Reference date}, Path=Date}"
+                            />
+                    </act:ActivitySnapshotMarkup.Data>
+                </act:ActivitySnapshotMarkup>
+            </Button.CommandParameter>
+        </Button>
     </StackLayout>
     
 </Grid>

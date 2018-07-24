@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Presentation.Pages.Tab.TabPage">
+    <ContentPage.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+            <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
+            <Setter Property="BorderColor" Value="{StaticResource Primary}"/>
+            <Setter Property="TextColor" Value="White"/>
+        </Style>
+        <!--<ControlTemplate x:Key="vlist">
+            <Label Text="content"/>
+        </ControlTemplate>-->
+        <!--<local:TabPageTemplateSelector x:Key="tabselector" LeftDataTemplate="{StaticResource vlist}" />-->
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button x:Name="btn0" Grid.Column="0" Grid.Row="0" Command="{Binding TabSelected}" 
+                    Image="ic_message_white_24dp.png"
+                    CommandParameter="0"/>
+            <Button x:Name="btn1"  Grid.Column="1" Grid.Row="0" Command="{Binding TabSelected}"
+                    Image="ic_message_white_24dp.png"
+                    CommandParameter="1"/>
+            <Button x:Name="btn2" Grid.Column="2" Grid.Row="0" Command="{Binding TabSelected}"
+                    Image="ic_message_white_24dp.png"
+                    CommandParameter="2"/>
+            <Button x:Name="btn3" Grid.Column="3" Grid.Row="0" Command="{Binding TabSelected}"
+                    Image="ic_message_white_24dp.png"
+                    CommandParameter="3"/>
+
+            <ContentView BindingContext="{Binding Content}" BindingContextChanged="cv_BindingContextChanged"
+                         Grid.Row="1" Grid.ColumnSpan="4" x:Name="cv"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

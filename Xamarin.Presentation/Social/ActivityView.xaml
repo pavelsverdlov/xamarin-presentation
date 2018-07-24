@@ -22,14 +22,10 @@
         <StackLayout VerticalOptions="End" HorizontalOptions="Start" Grid.Column="1" 
                                  Grid.Row="0" Orientation="Horizontal"
                                  Margin="5,0,0,0">
-            <Label Text="{Binding ActorName}" FontAttributes="Bold"/>
-            <Label Text=" • "/>
-            <Label Text="{Binding Verb}" />
-            <Label Text=" "/>
-            <Label Text="{Binding Title}" FontAttributes="Bold" />
+            <Label FormattedText="{Binding Header}" />
         </StackLayout>
-        <StackLayout VerticalOptions="Start" HorizontalOptions="EndAndExpand" Grid.Column="1" 
-                                 Grid.Row="1" Orientation="Horizontal" BindingContext="{Binding Dates}">
+        <StackLayout VerticalOptions="End" HorizontalOptions="Start" Grid.Column="1" Margin="5,0,0,0"
+                     Grid.Row="1" Orientation="Horizontal" BindingContext="{Binding Dates}">
             <Label Text="{Binding DateCreated}"/>
             <Label Text=" to "/>
             <Label Text="{Binding DateClosed}"/>

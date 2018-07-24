@@ -30,6 +30,7 @@ namespace Xamarin.Presentation.Pages {
                 navigation.SetBinding(NavigationPage.IconProperty, new Binding(nameof(this.Page.IconSource), BindingMode.OneWay, source: this.Page));
                 navigation.SetBinding(NavigationPage.TitleProperty, new Binding(nameof(this.Page.Title), BindingMode.OneWay, source: this.Page));
                 //NavigationPage.SetTitleIcon(bindable, new FileImageSource() { File="person.png" });
+                Page.UpdateNavigation(navigation);
             } else {
               //  var nav = new NavigationPage(bindable);
                // this.Page.Navigation = nav;
@@ -59,20 +60,21 @@ namespace Xamarin.Presentation.Pages {
                 return;
             }
 
-            bindable.Icon = this.Page.IconSource;
+            //bindable.Icon = this.Page.IconSource;
 
-            bindable.SetBinding(MasterDetailPage.IconProperty, new Binding(nameof(this.Page.IconSource), BindingMode.OneWay, source: this.Page));
-            bindable.SetBinding(MasterDetailPage.TitleProperty, new Binding(nameof(this.Page.Title), BindingMode.OneWay, source: this.Page));
-            bindable.SetBinding(MasterDetailPage.IsBusyProperty, new Binding(nameof(this.Page.IsBusy), BindingMode.OneWay, source: this.Page));
-            bindable.SetBinding(MasterDetailPage.IsPresentedProperty, new Binding(nameof(this.Page.IsPresented), BindingMode.OneWay, source: this.Page));
+            //bindable.SetBinding(MasterDetailPage.IconProperty, new Binding(nameof(this.Page.IconSource), BindingMode.OneWay, source: this.Page));
+            //bindable.SetBinding(MasterDetailPage.TitleProperty, new Binding(nameof(this.Page.Title), BindingMode.OneWay, source: this.Page));
+            //bindable.SetBinding(MasterDetailPage.IsBusyProperty, new Binding(nameof(this.Page.IsBusy), BindingMode.OneWay, source: this.Page));
+            //bindable.SetBinding(MasterDetailPage.IsPresentedProperty, new Binding(nameof(this.Page.IsPresented), BindingMode.OneWay, source: this.Page));
 
-            var dd = Application.Current.MainPage;
+            //var dd = Application.Current.MainPage;
 
-            foreach (var item in this.Page.ToolbarMenu) {
-                bindable.ToolbarItems.Add(item);
-            }
+            //foreach (var item in this.Page.ToolbarMenu) {
+            //    bindable.ToolbarItems.Add(item);
+            //}
 
-            this.Page.Navigation = bindable.Detail.Navigation;
+            //this.Page.Navigation = bindable.Detail.Navigation;
+            this.Page.UpdateMaster(bindable); 
         }
     }
 }
