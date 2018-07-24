@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Windows.Input;
+using Xamarin.Forms;
 using Xamarin.Presentation.Social.States;
 
 namespace Xamarin.Presentation.Social {
@@ -9,7 +10,7 @@ namespace Xamarin.Presentation.Social {
     }
 
     public interface IActivityHeaderController {
-        Command<ButtonModel> ClickCommand { get; }
+        ICommand ClickCommand { get; }
     }
     //public abstract class ActivityHeaderController : Framework.VSVVM.BaseController {
     //    public ActivityHeaderController() {

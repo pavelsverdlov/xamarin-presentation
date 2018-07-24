@@ -87,29 +87,42 @@ namespace Xamarin.Presentation.Pages {
         //}
     }
 
-    public class PageNavigatorAdapter : IPageNavigator {
+    public class PageNavigatorAdapter : BaseNotify, IPageNavigator {
         public string Title {
             get => decorator.Title;
-            set => decorator.Title = value;
+            set {
+                decorator.Title = value;
+                SetPropertyChanged();
+            }
         }
         public string IconSource {
             get => decorator.IconSource;
-            set => decorator.IconSource = value;
+            set {
+                decorator.IconSource = value;
+                SetPropertyChanged();
+            }
         }
-        public bool IsBusy {
+        public override bool IsBusy {
             get => decorator.IsBusy;
             set {
                 decorator.IsBusy = value;
+                SetPropertyChanged();
             }
         }
 
         public IList<ToolbarItem> ToolbarMenu {
             get => decorator.ToolbarMenu;
-            set => decorator.ToolbarMenu = value;
+            set {
+                decorator.ToolbarMenu = value;
+                SetPropertyChanged();
+            }
         }
         public INavigation Navigation {
             get => decorator.Navigation;
-            set => decorator.Navigation = value;
+            set {
+                decorator.Navigation = value;
+                SetPropertyChanged();
+            }
         }
 
         INavigationDecorator decorator;
@@ -130,21 +143,13 @@ namespace Xamarin.Presentation.Pages {
    
     public class NoNavigationPageDecorator : BaseNotify, INavigationDecorator {
         private bool isBusy;
-        private string title;
-        private string iconSource;
 
-        public string Title {
-            get => title;
-            set => Update(ref title, value);
-        }
-        public string IconSource {
-            get => iconSource;
-            set => Update(ref iconSource, value);
-        }
+        public string Title { get; set; }
+        public string IconSource { get; set; }
         public override bool IsBusy {
             get => isBusy;
             set {
-                Update(ref isBusy, value);
+                isBusy = value;
             }
         }
 

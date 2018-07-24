@@ -19,7 +19,7 @@ namespace Xamarin.Presentation.Framework {
             return true;
         }
 
-        protected void SetPropertyChanged(string propertyName) {
+        protected void SetPropertyChanged([CallerMemberName]string propertyName="") {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

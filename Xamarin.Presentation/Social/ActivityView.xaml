@@ -5,7 +5,7 @@
              Orientation="Vertical" x:Name="activityview">
     <StackLayout.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
-            <Setter Property="CommandParameter" Value="{Binding}"/>
+            <Setter Property="CommandParameter" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext}"/>
             <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>
         </Style>        
     </StackLayout.Resources>
