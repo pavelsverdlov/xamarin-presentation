@@ -14,6 +14,8 @@ namespace Xamarin.Presentation.Navigation {
         /// </summary>
         //Task<TVM> GoTo<TVM>(INavigation nav) where TVM : class;
 
+        Task<TViewModel> GoToAsNavigationPage<TViewModel>(INavigation nav) where TViewModel : class;
+
         /// <summary>
         /// ViewModel will nor been created, it will get from View.BindingContext
         /// ViewModel must be binded to View in XAML 
@@ -21,7 +23,7 @@ namespace Xamarin.Presentation.Navigation {
         Task<TViewModel> GoToPage<TViewModel>(INavigation nav) where TViewModel : class;
         Task GoToPage(INavigation nav, Type type);
 
-        Page GotView(Type type);
+        Page GetView(Type type);
 
         //Task<TVM> GoTo<TView, TVM>() where TView : Page;
         //Task<TVM> OpenModal<T, TVM>();
@@ -57,7 +59,14 @@ namespace Xamarin.Presentation.Navigation {
 
             return (TViewModel)displayPage.BindingContext;
         }
-        public Page GotView(Type type) {
+        public async Task<TViewModel> GoToAsNavigationPage<TViewModel>(INavigation nav) where TViewModel : class {
+            var displayPage = container.GetView<TViewModel, Page>();
+
+            await nav.PushAsync(new NavigationPage(displayPage));
+
+            return (TViewModel)displayPage.BindingContext;
+        }
+        public Page GetView(Type type) {
             return container.GetView(type);            
         }
 

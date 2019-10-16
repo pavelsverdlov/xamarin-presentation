@@ -4,7 +4,7 @@
           x:Class="Xamarin.Presentation.Controls.LV.ExtendedListView"
           xmlns:crl="clr-namespace:Xamarin.Presentation.Controls;assembly=Xamarin.Presentation"
           x:Name="ExdListView"
-          ItemsSource="{Binding ViewState.ViewCollection}"
+          ItemsSource="{Binding ViewCollection}"
           VerticalOptions="FillAndExpand"
           
           HasUnevenRows="true"

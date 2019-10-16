@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Presentation.Framework.VSVVM;
 using Xamarin.Presentation.Pages.Menu;
@@ -6,10 +7,10 @@ using Xamarin.Presentation.Pages.Menu;
 namespace Xamarin.Presentation.Pages {
     public abstract class MasterDetailPresenter<TController> :
         BasePresenter<MasterDetailViewState, TController> where TController : MasterDetailController, new() {
-        public IMasterDetailPageNavigator Page { get; }
+        public IPageNavigator PageNavigator { get; }
 
         public MasterDetailPresenter() {
-            Page = new MasterDetailDecorator();
+            PageNavigator = new PageNavigatorAdapter();
         }
 
         //protected override void Init(MasterDetailViewState vs, MasterDetailController con) {
@@ -31,16 +32,16 @@ namespace Xamarin.Presentation.Pages {
     }
 
     public class MasterDetailViewState : BaseViewState {
-        public string AccountImage { get; }
-        public string AccountName { get; }
-        public string AccountStatus { get; }
+        public string AccountImage { get; set; }
+        public string AccountName { get; set; }
+        public string AccountStatus { get; set; }
 
-        public List<NavPageMenuItem> MenuItems { get; set; }
+        public ObservableCollection<NavPageMenuItem> MenuItems { get; }
         public MasterDetailViewState() {
             AccountImage = "person.png";
             AccountName = "Some user";
             AccountStatus = "online";
-            MenuItems = new List<NavPageMenuItem>();
+            MenuItems = new ObservableCollection<NavPageMenuItem>();
         }
     }
 

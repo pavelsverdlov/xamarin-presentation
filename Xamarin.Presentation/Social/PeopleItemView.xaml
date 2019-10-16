@@ -19,10 +19,11 @@
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <ffimageloading:CachedImage HeightRequest="50" WidthRequest="50"
-                                    Aspect="AspectFit" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0"
-                                    DownsampleToViewSize="true" Source="{Binding IconSource}"/>
-
+    <StackLayout  Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" 
+                  HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+        <ffimageloading:CachedImage Aspect="AspectFit" DownsampleToViewSize="true" Source="{Binding IconSource}"
+                                    WidthRequest="100" HeightRequest="100"/>
+    </StackLayout>
     <Label Text="{Binding Name}" FontSize="15" TextColor="Black"
                                        FontAttributes="Bold" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"/>
     <Label Text="{Binding Info}" Grid.Column="1" Grid.Row="1"/>

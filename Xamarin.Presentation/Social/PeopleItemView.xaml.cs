@@ -41,6 +41,11 @@ namespace Xamarin.Presentation.Social {
         }
         public PeopleItemView() {
             InitializeComponent();
+          //  BindingContextChanged += PeopleItemView_BindingContextChanged;
+        }
+
+        private void PeopleItemView_BindingContextChanged(object sender, EventArgs e) {
+            this.BindingContext.ToString();
         }
     }
 }

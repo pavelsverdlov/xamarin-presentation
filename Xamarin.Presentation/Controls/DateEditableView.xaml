@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Presentation.Controls.DateEditableView">
+  <ContentView.Content>
+        <StackLayout Orientation="Vertical" Margin="10" >
+
+            <StackLayout x:Name="ReadLayout" Orientation="Vertical">
+                <Label x:Name="ReadHeader" FontSize="Small"/>
+                <Label x:Name="ReadValue" FontSize="Medium" Margin="0,10,0,0"/>
+                <BoxView Style="{StaticResource SeparatorBox}" Margin="0,1,0,0"/>
+            </StackLayout>
+
+            <StackLayout x:Name="WriteLayout"  Orientation="Vertical" IsVisible="False">
+                <Label x:Name="WriteHeader" FontSize="Small"/>
+                <DatePicker x:Name="WriteValue" FontSize="Medium" Margin="-5,0,0,-5" DateSelected="OnDateSelected" />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

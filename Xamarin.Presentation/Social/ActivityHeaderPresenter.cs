@@ -3,11 +3,11 @@ using Xamarin.Forms;
 using Xamarin.Presentation.Social.States;
 
 namespace Xamarin.Presentation.Social {
-    public class ActivityHeaderPresenter<TController> :
-        Framework.VSVVM.BasePresenter<ActivityViewState, TController>
-        where TController : Framework.VSVVM.BaseController, IActivityHeaderController, new() {
+    //public class ActivityHeaderPresenter<TController> :
+    //    Framework.VSVVM.BasePresenter<ActivityImageViewModel, TController>
+    //    where TController : Framework.VSVVM.BaseController, IActivityHeaderController, new() {
 
-    }
+    //}
 
     public interface IActivityHeaderController {
         ICommand ClickCommand { get; }

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Xamarin.Presentation.Social;assembly=Xamarin.Presentation"
       xmlns:comm="clr-namespace:Xamarin.Presentation.Social.Comments;assembly=Xamarin.Presentation"
              xmlns:crl="clr-namespace:Xamarin.Presentation.Controls;assembly=Xamarin.Presentation"
+             xmlns:lv="clr-namespace:Xamarin.Presentation.Controls.LV;assembly=Xamarin.Presentation"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="Xamarin.Presentation.Social.ActivityDetailsPage"
              x:Name="actdetails">
@@ -26,11 +27,14 @@
             <local:ActivityView Grid.Row="0" BindingContext="{Binding HeaderViewModel}" Margin="0,0,0,10"/>
         </ListView.Header>
         <ListView.Behaviors>
+            
             <crl:ListViewPullToRefreshBehavior BindingContext="{x:Reference actdetails}" 
                                                PullToRefresh="{Binding BindingContext.PullToRefresh}" />
             
             <crl:ListViewItemSelectedBehavior BindingContext="{x:Reference actdetails}" 
                                               ItemSelected="{Binding BindingContext.DetailViewModel.Controller.ItemSelectedCommand}" />
+            
+            <lv:ListItemAppearingBehavior ItemAppeared="{Binding BindingContext.DetailViewModel.Controller.ItemAppeared, Source={x:Reference actdetails}}" />
             
         </ListView.Behaviors>
         <ListView.ItemTemplate>

@@ -26,15 +26,15 @@
         <local:AccountShortInfoView BindingContext="{Binding}" HorizontalOptions="FillAndExpand" Grid.Row="0"/>
         
         <Label Text="Title"/>
-        <Entry Placeholder="Cleaning of the yard." x:Name="titleEntry"/>
+        <Entry Placeholder="{Binding ViewState.TitlePlaceholder}" x:Name="titleEntry"/>
 
         <Label Text="Rubric"/>
         <Picker Title="Rubric" SelectedIndex="0" x:Name="rubric">
             <Picker.Items>
                 <x:String>- None selected -</x:String>
-                <x:String>Travelling</x:String>
-                <x:String>Payments</x:String>
-                <x:String>Group change</x:String>
+                <x:String>Rubric 1</x:String>
+                <x:String>Rubric 2</x:String>
+                <x:String>Rubric 3</x:String>
             </Picker.Items>
         </Picker>
         

@@ -2,9 +2,12 @@
 <ScrollView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:lv="clr-namespace:Xamarin.Presentation.Controls.LV;assembly=Xamarin.Presentation"
+             xmlns:covert="clr-namespace:Xamarin.Presentation.Converters;assembly=Xamarin.Presentation"
             xmlns:entryb="clr-namespace:Xamarin.Presentation.Controls._Entry;assembly=Xamarin.Presentation"
              x:Class="Xamarin.Presentation.Social.Profiles.EditProfileView">
     <ScrollView.Resources>
+        <covert:NullVisibilityConverter x:Key="NullVisConverter" />
+
         <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
             <!--<Setter Property="CommandParameter" Value="{Binding}"/>
             <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>-->
@@ -20,18 +23,21 @@
                 Command="{Binding Controller.ChangeImage}"
                 BorderColor="{StaticResource Primary}"
                 BackgroundColor="{StaticResource Accent}" />
-        
-        <Label Text="First name"/>
-        <Entry Text="{Binding ViewState.FirstName}"/>
+
+        <Label Text="First name" IsVisible="{Binding ViewState.FirstName, Converter={StaticResource NullVisConverter}}"/>
+        <Entry Text="{Binding ViewState.FirstName}" IsVisible="{Binding ViewState.FirstName, Converter={StaticResource NullVisConverter}}"/>
 
         <Label Text="Last name"/>
         <Entry Text="{Binding ViewState.LastName}"/>
         
-        <Label Text="Email"/>
-        <Entry Text="{Binding ViewState.Email}" Placeholder="email@xxx.xx"/>
+        <Label Text="Email"
+               IsVisible="{Binding ViewState.Email, Converter={StaticResource NullVisConverter}}"/>
+        <Entry Text="{Binding ViewState.Email}" Placeholder="email@xxx.xx" 
+               IsVisible="{Binding ViewState.Email, Converter={StaticResource NullVisConverter}}"/>
 
-        <Label Text="Phone"/>
-        <Entry Text="{Binding ViewState.Phone}" Keyboard="Numeric" Placeholder="(XXX) XXX-XXX">
+        <Label Text="Phone" IsVisible="{Binding ViewState.Phone, Converter={StaticResource NullVisConverter}}"/>
+        <Entry Text="{Binding ViewState.Phone}" Keyboard="Numeric" Placeholder="(XXX) XXX-XXX"
+               IsVisible="{Binding ViewState.Phone, Converter={StaticResource NullVisConverter}}">
             <Entry.Behaviors>
                 <entryb:MaskedBehavior Mask="(XXX) XXX-XXX" />
             </Entry.Behaviors>

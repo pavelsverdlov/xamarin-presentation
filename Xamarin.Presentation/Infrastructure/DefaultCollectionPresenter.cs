@@ -13,7 +13,7 @@ namespace Xamarin.Presentation.Infrastructure {
         protected readonly ICommutator commutator;
         protected readonly IXamLogger logger;
 
-        public IPageNavigator PageNavigator { get; }
+        public IPageNavigator PageNavigator { get; set; }
         public ListViewPullToRefreshViewModel PullToRefresh { get; }
 
         protected DefaultCollectionPresenter(IXamLogger logger, ICommutator commutator) {

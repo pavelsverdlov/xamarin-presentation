@@ -4,19 +4,22 @@ using Xamarin.Presentation.Framework;
 namespace Xamarin.Presentation.Pages.Tab {
     public interface ITabPage {
         int Index { get; }
+        void UpdateBindingContext(object bc);
+        //object BindingContext { get; set; }
         //IsSelected
-
     }
 
     internal class LeftTapContent : ITabPage {
         public int Index => 0;
-    }
-    internal class RightTapContent : ITabPage {
-        public int Index => 1;
+
+        public object BindingContext { get; set; }
+
+        public void UpdateBindingContext(object bc) {
+        
+        }
     }
 
-
-    public class TestSelector : ITabControlTemplateSelector {
+    public class TabControlTemplateSelector  {
         public ControlTemplate Template0 { get; set; }
         public ControlTemplate Template1 { get; set; }
         public ControlTemplate Template2 { get; set; }
@@ -24,27 +27,36 @@ namespace Xamarin.Presentation.Pages.Tab {
 
         public int Count => 4;
 
-        public ControlTemplate GetTemplate(ITabPage tab) {
+        ControlTemplate GetTemplate(ITabPage tab) {
             switch (tab.Index) {
                 case 0:
                     return Template0;
                 case 1:
                     return Template1;
+                case 2:
+                    return Template2;
+                case 3:
+                    return Template3;
             }
             return null;
         }
+
+        public void ApplyTemplate(TemplatedView view, ITabPage tab) {
+            view.ControlTemplate = GetTemplate(tab);
+            //var bc = view.BindingContext;
+        }
     }
 
-    public interface ITabControlTemplateSelector {
-        int Count { get; }
+    //public interface ITabControlTemplateSelector {
+    //    int Count { get; }
 
-        ControlTemplate Template0 { get; set; }
-        ControlTemplate Template1 { get; set; }
-        ControlTemplate Template2 { get; set; }
-        ControlTemplate Template3 { get; set; }
+    //    ControlTemplate Template0 { get; set; }
+    //    ControlTemplate Template1 { get; set; }
+    //    ControlTemplate Template2 { get; set; }
+    //    ControlTemplate Template3 { get; set; }
 
-        ControlTemplate GetTemplate(ITabPage page);
-    }
+    //    void ApplyTemplate(TemplatedView view, ITabPage tab);
+    //}
 
     public interface ITabController {
         /// <summary>
@@ -57,34 +69,27 @@ namespace Xamarin.Presentation.Pages.Tab {
         ITabPage Content { get; }
     }
 
-    public class TabPresenter : BaseNotify, ITabController {
-        private object content;
-        public object Content {
-            get => content;
-            set => Update(ref content, value);
+    public interface ITabPageNavigatorUpdating {
+        IPageNavigator PageNavigator { set; }
+        void NavigatorPageChanged();
+    }
+    public class TabPageItem<TPresenter> : ITabPage {
+        readonly IPageNavigator pageNavigator;
+
+        public TabPageItem(IPageNavigator pageNavigator) {
+            this.pageNavigator = pageNavigator;
         }
 
-        public Command<string> TabSelected { get; }
-        public Command Right { get; }
+        public int Index { get; set; }
+        public TPresenter Presenter => (TPresenter)bindingContext;
+        object bindingContext;
 
-        public TabPresenter() {
-            TabSelected = new Command<string>(OnLeft);
-            Right = new Command(OnRight);
-        }
-
-        private void OnRight(object obj) {
-
-        }
-
-        private void OnLeft(string obj) {
-            switch (obj) {
-                case "0":
-                    Content = new LeftTapContent();
-                    break;
-                case "1":
-                    Content = new RightTapContent();
-                    break;
+        public void UpdateBindingContext(object bc) {
+            if (bc is ITabPageNavigatorUpdating navigator) {
+                navigator.PageNavigator = pageNavigator;// new MixipleMasterNavigatorDecorator(pageNavigator);
+                navigator.NavigatorPageChanged();                                    //navigator.PageNavigator.UpdateNavigation();
             }
+            bindingContext = bc;
         }
     }
 }

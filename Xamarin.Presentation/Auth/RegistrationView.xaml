@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<states:StateContainer  
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:states="clr-namespace:Xamarin.Presentation.Pages.States;assembly=Xamarin.Presentation"
+             xmlns:behaviors="clr-namespace:Xamarin.Presentation.Behaviors"
+    xmlns:converters="clr-namespace:Xamarin.Presentation.Converters"
+    x:Class="Xamarin.Presentation.Auth.RegistrationView">
+
+    <states:StateContainer.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+
+        </Style>
+    </states:StateContainer.Resources>
+    <states:StateCondition State="Loading">
+        <ActivityIndicator IsRunning="True" Color="Blue"  
+                           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                               />
+    </states:StateCondition>
+
+    <states:StateCondition State="NoInternet">
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="No internet connection" />
+            <Button Command="{Binding RetryConnection}" Text="Retry" />
+        </StackLayout>
+    </states:StateCondition>
+
+    <states:StateCondition State="Error">
+        <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Label Text="{Binding ErrorMessage}" />
+            <Button Command="{Binding RetryConnection}" Text="Retry" />
+        </StackLayout>
+    </states:StateCondition>
+
+    <states:StateCondition State="Normal">
+        <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Default">
+
+            <StackLayout>
+
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Entry">
+                            <Setter Property="PlaceholderColor" Value="Gray"/>
+                            <Setter Property="Margin" Value="0,10,0,0" />
+                            
+                            
+                        </Style>
+                    </ResourceDictionary>
+
+                    <converters:ValidationErrorConverter x:Key="ErrorValidation"/>
+                    <converters:ValidationIsValidConverter x:Key="IsValidValidation"/>
+                </StackLayout.Resources>
+
+                <Image BackgroundColor="{StaticResource Accent}" HeightRequest="50"/>
+                <Frame HorizontalOptions="FillAndExpand" Padding="10" VerticalOptions="FillAndExpand">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" >
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label Text="English"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                            <Entry x:Name="fname" Placeholder="First Name" 
+                                   Text="{Binding ViewState.FirstName, Mode=OneWay}"/>
+                            <Entry x:Name="lname" Placeholder="Last Name" 
+                                   Text="{Binding ViewState.LastName, Mode=TwoWay}">
+                                <Entry.Behaviors>
+                                    <behaviors:EventToCommandBehavior EventName="TextChanged" Command="{Binding Controller.Validate}" />
+                                </Entry.Behaviors>
+                            </Entry>
+                            <Label Text="{Binding Validator.State, Mode=OneWay, Converter={StaticResource ErrorValidation}, ConverterParameter='LastName'}" 
+                                   Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                            <Entry x:Name="email" Placeholder="Email" PlaceholderColor="Gray"
+                                   Text="{Binding ViewState.Email, Mode=TwoWay}">
+                                <Entry.Behaviors>
+                                    <behaviors:EventToCommandBehavior EventName="TextChanged"
+							                Command="{Binding Controller.Validate}" />
+                                    <!--CommandParameter="{Binding Source={x:Reference email}, Path=Text}"-->
+                                </Entry.Behaviors>
+                                    <Entry.Triggers>
+                                    <!--<DataTrigger TargetType="Entry" 
+                                                 Binding="{Binding ViewState.Validator, Mode=OneWay, Converter={StaticResource IsValidValidation}, ConverterParameter='Email'}" 
+                                                 Value="False">  
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>-->
+                                </Entry.Triggers>
+                            </Entry>
+                            <Label Text="{Binding Validator.State, Mode=OneWay, Converter={StaticResource ErrorValidation}, ConverterParameter='Email'}" 
+                                   Style="{StaticResource ValidationErrorLabelStyle}"/>
+
+                            <Picker Margin="0,5,0,0" Title="Gender" SelectedIndex="1" SelectedItem="{Binding ViewState.Gender}">
+                                <Picker.Items>
+                                    <x:String>- None selected -</x:String>
+                                    <x:String>Male</x:String>
+                                    <x:String>Female</x:String>
+                                </Picker.Items>
+                            </Picker>
+
+                            <Entry x:Name="pass" IsPassword="True" Placeholder="Password" Text="{Binding ViewState.Pass, Mode=TwoWay}" />
+                            <Entry x:Name="cpass" IsPassword="True" Placeholder="Repeat password" Text="{Binding ViewState.RepeatPass, Mode=TwoWay}" />
+
+                            <DatePicker x:Name="date" VerticalOptions="CenterAndExpand" Date="{Binding ViewState.Birthday}">
+                                <DatePicker.Format>MMMM d yyyy</DatePicker.Format>
+                                <DatePicker.MinimumDate>
+                                    <system:DateTime x:FactoryMethod="Parse">
+                                        <x:Arguments>
+                                            <x:String>Jan 1 2000</x:String>
+                                        </x:Arguments>
+                                    </system:DateTime>
+                                </DatePicker.MinimumDate>
+                                <DatePicker.MaximumDate>
+                                    <system:DateTime x:FactoryMethod="Parse">
+                                        <x:Arguments>
+                                            <x:String>Dec 31 2050</x:String>
+                                        </x:Arguments>
+                                    </system:DateTime>
+                                </DatePicker.MaximumDate>
+                            </DatePicker>
+
+                        </StackLayout>
+
+                        <Button Text="Register" Command="{Binding Controller.Register}" Margin="0,10,0,10"
+                                IsEnabled="False">
+                            <Button.Triggers>
+                                <MultiTrigger TargetType="Button">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Validator.HasFailures}" Value="False" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True" />
+                                </MultiTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+                        <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="Center">
+                            <Image Source="facebook.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FacebookAuth}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image Source="google.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FacebookAuth}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Image Source="vk.png" Aspect="AspectFit" HeightRequest="35" Margin="5,0,5,0">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FacebookAuth}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </states:StateCondition>
+
+</states:StateContainer>

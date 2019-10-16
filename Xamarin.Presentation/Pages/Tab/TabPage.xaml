@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Xamarin.Presentation.Pages.Tab.TabPage">
+             xmlns:pages="clr-namespace:Xamarin.Presentation.Pages;assembly=Xamarin.Presentation"
+             x:Class="Xamarin.Presentation.Pages.Tab.TabPage"
+             TabContent="{Binding Content}"
+             x:Name="page">
     <ContentPage.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
             <Setter Property="BackgroundColor" Value="{StaticResource Primary}"/>
@@ -13,6 +16,7 @@
         </ControlTemplate>-->
         <!--<local:TabPageTemplateSelector x:Key="tabselector" LeftDataTemplate="{StaticResource vlist}" />-->
     </ContentPage.Resources>
+
     <ContentPage.Content>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -23,24 +27,39 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="btn0" Grid.Column="0" Grid.Row="0" Command="{Binding TabSelected}" 
-                    Image="ic_message_white_24dp.png"
+            <Button x:Name="btn0" Grid.Column="0" Grid.RowSpan="2"  Command="{Binding TabSelected}" 
+                    Clicked="btn_Clicked"
+                    Image="ic_home_white_24dp.png"
                     CommandParameter="0"/>
-            <Button x:Name="btn1"  Grid.Column="1" Grid.Row="0" Command="{Binding TabSelected}"
-                    Image="ic_message_white_24dp.png"
+            <Button x:Name="btn1"  Grid.Column="1" Grid.RowSpan="2" Command="{Binding TabSelected}"
+                    Image="ic_people_white_24dp.png"
+                    Clicked="btn_Clicked"
                     CommandParameter="1"/>
-            <Button x:Name="btn2" Grid.Column="2" Grid.Row="0" Command="{Binding TabSelected}"
+            <Button x:Name="btn2" Grid.Column="2" Grid.RowSpan="2"  Command="{Binding TabSelected}"
                     Image="ic_message_white_24dp.png"
+                    Clicked="btn_Clicked"
                     CommandParameter="2"/>
-            <Button x:Name="btn3" Grid.Column="3" Grid.Row="0" Command="{Binding TabSelected}"
-                    Image="ic_message_white_24dp.png"
+            <Button x:Name="btn3" Grid.Column="3" Grid.RowSpan="2"  Command="{Binding TabSelected}"
+                    Image="baseline_notifications_white_24dp.png"
+                    Clicked="btn_Clicked"
                     CommandParameter="3"/>
 
-            <ContentView BindingContext="{Binding Content}" BindingContextChanged="cv_BindingContextChanged"
-                         Grid.Row="1" Grid.ColumnSpan="4" x:Name="cv"/>
+            <BoxView x:Name="line0" HeightRequest="1" Grid.Row="1" Grid.Column="0"/>
+            <BoxView x:Name="line1" HeightRequest="1" Grid.Row="1" Grid.Column="1"/>
+            <BoxView x:Name="line2" HeightRequest="1" Grid.Row="1" Grid.Column="2"/>
+            <BoxView x:Name="line3" HeightRequest="1" Grid.Row="1" Grid.Column="3"/>
+
+            <ContentView Grid.Row="2" Grid.ColumnSpan="4" x:Name="cv"/>
+            
         </Grid>
     </ContentPage.Content>
+
+    <!--<ContentPage.Behaviors>
+        <pages:PageNavigatorBehavior Page="{Binding Source={x:Reference Name=page}, Path=BindingContext.PageNavigator}" />
+    </ContentPage.Behaviors>-->
+
 </ContentPage>

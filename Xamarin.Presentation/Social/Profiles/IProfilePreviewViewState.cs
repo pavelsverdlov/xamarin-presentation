@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Xamarin.Presentation.Social.Profiles {
     public interface IProfilePreviewViewState {
@@ -7,6 +8,11 @@ namespace Xamarin.Presentation.Social.Profiles {
         string ProfileName { get; set; }
 
         List<ProfilePeopertyItem> ProfileProperties { get; }
+    }
+    public interface IProfilePreviewController<TItem> where TItem : IProfilePreviewViewState {
+        Command<TItem> SendEmail { get; }
+        Command<TItem> SendMessage { get; }
+        Command<ProfilePeopertyItem> ItemSelected { get; }
     }
 
     public interface IEditProfileViewState {

@@ -8,14 +8,18 @@ namespace Xamarin.Presentation.Controls.LV {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExtendedListView : ListView {
 
+        #region selected 
+
         public static readonly BindableProperty ItemSelectedCommandProperty =
-           BindableProperty.CreateAttached(nameof(ItemSelectedCommand), typeof(ICommand), typeof(ExtendedListView), null, propertyChanged: OnItemSelectedPropertyChanged);
+          BindableProperty.CreateAttached(nameof(ItemSelectedCommand), typeof(ICommand), typeof(ExtendedListView), null, propertyChanged: OnItemSelectedPropertyChanged);
 
         private static void OnItemSelectedPropertyChanged(BindableObject bindable, object oldValue, object newValue) {
             var _this = (ExtendedListView)bindable;
-            _this.ExdListView.Behaviors.Remove(_this.itemSelectedBehavior);
-            _this.itemSelectedBehavior.ItemSelected = (ICommand)newValue;
-            _this.ExdListView.Behaviors.Add(_this.itemSelectedBehavior);
+            DispatcherEx.BeginRise(() => {
+                _this.ExdListView.Behaviors.Remove(_this.itemSelectedBehavior);
+                _this.itemSelectedBehavior.ItemSelected = (ICommand)newValue;
+                _this.ExdListView.Behaviors.Add(_this.itemSelectedBehavior);
+            });
         }
 
         public ICommand ItemSelectedCommand {
@@ -23,14 +27,20 @@ namespace Xamarin.Presentation.Controls.LV {
             set { SetValue(ItemSelectedCommandProperty, value); }
         }
 
+        #endregion
+
+        #region pull refresh
+
         public static readonly BindableProperty PullToRefreshProperty =
-                  BindableProperty.CreateAttached(nameof(PullToRefresh), typeof(ListViewPullToRefreshViewModel), typeof(ExtendedListView), null, propertyChanged: OnPullToRefreshPropertyChanged);
+                 BindableProperty.CreateAttached(nameof(PullToRefresh), typeof(ListViewPullToRefreshViewModel), typeof(ExtendedListView), null, propertyChanged: OnPullToRefreshPropertyChanged);
 
         private static void OnPullToRefreshPropertyChanged(BindableObject bindable, object oldValue, object newValue) {
             var _this = (ExtendedListView)bindable;
-            _this.ExdListView.Behaviors.Remove(_this.pullToRefreshBehavior);
-            _this.pullToRefreshBehavior.PullToRefresh =(ListViewPullToRefreshViewModel) newValue;
-            _this.ExdListView.Behaviors.Add(_this.pullToRefreshBehavior);
+            DispatcherEx.BeginRise(() => {
+                _this.ExdListView.Behaviors.Remove(_this.pullToRefreshBehavior);
+                _this.pullToRefreshBehavior.PullToRefresh = (ListViewPullToRefreshViewModel)newValue;
+                _this.ExdListView.Behaviors.Add(_this.pullToRefreshBehavior);
+            });
         }
 
         public ListViewPullToRefreshViewModel PullToRefresh {
@@ -38,15 +48,47 @@ namespace Xamarin.Presentation.Controls.LV {
             set { SetValue(PullToRefreshProperty, value); }
         }
 
-     //   public DataTemplate ItemTemplate { set { ExdListView.ItemTemplate = value; } }
+        #endregion
+
+        #region appering
+
+        public static readonly BindableProperty ItemAppearedCommandProperty =
+           BindableProperty.CreateAttached(nameof(ItemAppearedCommand), typeof(ICommand), typeof(ExtendedListView), null, propertyChanged: OnItemAppearedPropertyChanged);
+
+        private static void OnItemAppearedPropertyChanged(BindableObject bindable, object oldValue, object newValue) {
+            var _this = (ExtendedListView)bindable;
+            DispatcherEx.BeginRise(() => {
+                _this.ExdListView.Behaviors.Remove(_this.itemAppearingBehavior);
+                _this.itemAppearingBehavior.ItemAppeared = (ICommand)newValue;
+                _this.ExdListView.Behaviors.Add(_this.itemAppearingBehavior);
+            });
+        }
+
+        public ICommand ItemAppearedCommand {
+            get { return (ICommand)GetValue(ItemAppearedCommandProperty); }
+            set { SetValue(ItemAppearedCommandProperty, value); }
+        }
+
+        #endregion
+
+        //   public DataTemplate ItemTemplate { set { ExdListView.ItemTemplate = value; } }
 
         readonly ListViewItemSelectedBehavior itemSelectedBehavior;
         readonly ListViewPullToRefreshBehavior pullToRefreshBehavior;
-        public ExtendedListView():base(ListViewCachingStrategy.RecycleElement) {
+        readonly ListItemAppearingBehavior itemAppearingBehavior;
+        public ExtendedListView() : base(ListViewCachingStrategy.RecycleElement) {
             InitializeComponent();
             itemSelectedBehavior = new ListViewItemSelectedBehavior();
             pullToRefreshBehavior = new ListViewPullToRefreshBehavior();
-           // ExdListView.ItemSelected += OnItemSelected;
+            itemAppearingBehavior = new ListItemAppearingBehavior();
+            // ExdListView.ItemSelected += OnItemSelected;
+#if DEBUG
+            this.BindingContextChanged += ExtendedListView_BindingContextChanged;
+#endif
+        }
+
+        private void ExtendedListView_BindingContextChanged(object sender, EventArgs e) {
+            var bc = this.BindingContext;
         }
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e) {

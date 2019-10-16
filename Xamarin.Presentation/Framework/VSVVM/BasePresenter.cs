@@ -7,8 +7,13 @@ namespace Xamarin.Presentation.Framework.VSVVM {
         BaseController Controller { get; }
     }
 
+    public interface IVSVVMPresenter<TViewStateType, TControllerType> : IBaseViewModel
+        where TViewStateType : BaseViewState, new()
+        where TControllerType : BaseController, new() {
+        TViewStateType ViewState { get; }
+    }
 
-    public abstract class BasePresenter<TViewStateType, TControllerType> :  IBaseViewModel 
+    public abstract class BasePresenter<TViewStateType, TControllerType> : IVSVVMPresenter<TViewStateType, TControllerType>
         where TViewStateType : BaseViewState, new()
         where TControllerType : BaseController, new() {
 
@@ -20,7 +25,7 @@ namespace Xamarin.Presentation.Framework.VSVVM {
         public BasePresenter() {
             ViewState = new TViewStateType();
             Controller = new TControllerType();
-             //Controller.Init(ViewState);
+            //Controller.Init(ViewState);
             Init(ViewState, Controller);
         }
 

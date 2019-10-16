@@ -38,10 +38,10 @@ namespace Xamarin.Presentation.DI {
         }
 
     }
-    public abstract class DependencyResolver {
+    public abstract class XamIoCContainer {
         private readonly Dictionary<Type, Func<object>> dictionary;
         private readonly Dictionary<Type, Type> typeMapper;
-        public DependencyResolver() {
+        public XamIoCContainer() {
             dictionary = new Dictionary<Type, Func<object>>();
             typeMapper = new Dictionary<Type, Type>();
             Registration();
@@ -51,6 +51,14 @@ namespace Xamarin.Presentation.DI {
 
         protected void Register<T, TI>() where T : class where TI : class, T {
             DependencyService.Register<T, TI>();
+        }
+        protected void Register<T, TImpl>(Action<TImpl> init, DependencyFetchTarget target) where T : class where TImpl : class, T {
+            DependencyService.Register<T, TImpl>();
+            init((TImpl)DependencyService.Get<T>(target));
+        }
+        protected void Register<TImpl>(Action<TImpl> init, DependencyFetchTarget target) where TImpl : class {
+            DependencyService.Register<TImpl>();
+            init(DependencyService.Get<TImpl>(target));
         }
         protected void Register<T>() where T : class {
             DependencyService.Register<T>();
@@ -64,8 +72,9 @@ namespace Xamarin.Presentation.DI {
             try {
                 return DependencyService.Get<T>();
             } catch (Exception ex) {
-                Debug.WriteLine(ex.ToString());
-                throw ex;
+                var inner = ex.Unwrap();
+                Debug.WriteLine(inner.ToString());
+                throw inner;
             }
         }
         public T GetAsSingleton<T>() where T : class {

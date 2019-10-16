@@ -5,7 +5,7 @@ namespace Xamarin.Presentation.Social.Comments {
     public interface ICommentAddingController {
         Command<Entry> CommentAdded { get; }
         Command CameraActivated { get; }
-        Command AttachFileActivated { get; }
+        //Command SendComment { get; }
         
     }
 

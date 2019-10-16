@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ScrollView xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+            xmlns:lv="clr-namespace:Xamarin.Presentation.Controls.LV;assembly=Xamarin.Presentation"
+            x:Class="Xamarin.Presentation.Social.Profiles.PreviewProfileView">
+    <ScrollView.Resources>
+        <!--<Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
+            <Setter Property="CommandParameter" Value="{Binding}"/>
+            <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>
+        </Style>-->
+        <DataTemplate x:Key="ProfilePropertiesKey">
+            <ViewCell>
+                <StackLayout Orientation="Horizontal" Margin="5" BackgroundColor="Transparent" >
+                    <Label Text="{Binding Property}" FontSize="Medium"/>
+                    <Label Text="{Binding Value}" FontSize="Medium" Margin="10,0,0,0"/>
+                </StackLayout>
+            </ViewCell>
+        </DataTemplate>
+
+    </ScrollView.Resources>
+
+    <StackLayout Spacing="0" Padding="0" VerticalOptions="StartAndExpand"  >
+
+        <StackLayout Orientation="Vertical" Padding="25,0,25,25" BackgroundColor="{StaticResource Primary}">
+            <ffimageloading:CachedImage HeightRequest="80" WidthRequest="80" Margin="0,0,0,0" 
+                                HorizontalOptions="Start" VerticalOptions="Start"
+                                Aspect="AspectFit" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0"
+                                DownsampleToViewSize="true" Source="{Binding ViewState.IconSource}"/>
+
+            <Label Text="{Binding ViewState.ProfileName}" Margin="0,15,0,0"
+                   FontSize="16" HorizontalOptions="StartAndExpand" TextColor="{StaticResource WhiteTextColor}"/>
+            <Label Text="Odessa, Ukraine" Margin="0,15,0,0"
+                   FontSize="14" HorizontalOptions="StartAndExpand" FontAttributes="Bold" TextColor="{StaticResource WhiteTextColor}"/>
+            <!--<Label Text="Some very very interesting and short info about me ..." Margin="0,10,0,0"
+                   FontSize="14" HorizontalOptions="StartAndExpand" TextColor="{StaticResource WhiteTextColor}"/>-->
+           
+        </StackLayout>
+
+        <Grid BackgroundColor="#eaecef" Margin="0,0,0,25" Padding="0,10,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Orientation="Vertical"  Grid.Column="0">
+                <Label Text="321" FontSize="16" HorizontalOptions="Center" Grid.Column="0" TextColor="{StaticResource Primary}" FontAttributes="Bold"/>
+                <Label Text="Follows" FontSize="16" HorizontalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Vertical"  Grid.Column="1">
+                <Label Text="123" FontSize="16" HorizontalOptions="Center" TextColor="{StaticResource Primary}" FontAttributes="Bold"/>
+                <Label Text="Following" FontSize="16" HorizontalOptions="Center"/>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" Grid.Column="2">
+                <Label Text="Send" FontSize="16" HorizontalOptions="Center" TextColor="{StaticResource Primary}" FontAttributes="Bold"/>
+                <Label Text="Message" FontSize="16" HorizontalOptions="Center"/>
+            </StackLayout>
+            
+            <!--<Button Text="Message" Grid.Column="2" Command="{Binding Controller.SendMessage}" CommandParameter="{Binding ViewState}"
+                    BackgroundColor="#f7f7f7" BorderColor="#f7f7f7" TextColor="{StaticResource Primary}"/>-->
+        </Grid>
+
+        <!--<BoxView Style="{StaticResource SeparatorBox}" Margin="0,10,0,0"/>-->
+
+        <ListView x:Name="props" BackgroundColor="White"
+                  ItemTemplate="{StaticResource ProfilePropertiesKey}" 
+                  ItemsSource="{Binding ViewState.ProfileProperties}"
+                  >
+            <!--ItemSelected="{Binding Controller.ItemSelected, ConverterParameter={Binding}}"-->
+            <ListView.Triggers>
+                <EventTrigger Event="ItemSelected">
+                    <lv:DeselectListViewItemTriggerAction />
+                </EventTrigger>
+            </ListView.Triggers>
+        </ListView>
+
+
+    </StackLayout>
+
+</ScrollView>

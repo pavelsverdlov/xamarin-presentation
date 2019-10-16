@@ -1,15 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:convert="clr-namespace:Xamarin.Presentation.Converters"
              x:Class="Xamarin.Presentation.Social.ActivityView"
+             VerticalOptions="StartAndExpand"
+             Spacing="0"
              Orientation="Vertical" x:Name="activityview">
     <StackLayout.Resources>
+        <convert:NullVisibilityConverter x:Key="NullVisibility" />
+        <!-- -->
         <Style TargetType="Button" BasedOn="{StaticResource FlatSocialButton}">
-            <Setter Property="CommandParameter" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext}"/>
-            <Setter Property="Command" Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.Controller.ClickCommand}"/>
-        </Style>        
+            <Setter Property="CommandParameter" Value="{Binding}" />
+            <!--Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext}"-->
+            <Setter Property="Command" 
+                    Value="{Binding Source={x:Reference Name=activityview}, Path=BindingContext.ClickCommand}"/>
+        </Style>
     </StackLayout.Resources>
-    <Grid Margin="10" BindingContext="{Binding ViewState}">
+
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -18,7 +27,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Image Source="{Binding ActorImage}" HeightRequest="50" Grid.Column="0" Grid.RowSpan="2" />
+        <ffimageloading:CachedImage Source="{Binding ActorImage}" HeightRequest="50" Grid.Column="0" 
+                                    Grid.RowSpan="2" Aspect="AspectFit"/>
         <StackLayout VerticalOptions="End" HorizontalOptions="Start" Grid.Column="1" 
                                  Grid.Row="0" Orientation="Horizontal"
                                  Margin="5,0,0,0">
@@ -32,12 +42,18 @@
         </StackLayout>
     </Grid>
 
-    <Label Margin="10,0,0,10" Text="{Binding ViewState.Body}" LineBreakMode="WordWrap"/>
+    <Label Margin="10,0,0,10" Text="{Binding Body}" LineBreakMode="WordWrap"/>
+    <!--IsVisible="{Binding ActivityImage,Converter={StaticResource NullVisibility}}"-->
 
-    <Grid Margin="0,10,0,0" HeightRequest="40">
+    <ffimageloading:CachedImage Aspect="AspectFit" DownsampleToViewSize="true"
+                                    x:Name="activityImage" Margin="0,5,0,5"
+                                    Source="{Binding ActivityImage}"/>
+
+
+    <Grid Margin="5,10,5,5" HeightRequest="40" ColumnSpacing="0" RowSpacing="0">
         <!--BindingContext="{Binding ViewState.Left}"-->
-        <Button Grid.Column="0" BindingContext="{Binding ViewState.Left}"/>
-        <Button Grid.Column="1" BindingContext="{Binding ViewState.Middle}"/>
+        <Button Grid.Column="0" BindingContext="{Binding Left}" CornerRadius="20" Margin="0,0,2,0"/>
+        <Button Grid.Column="1" BindingContext="{Binding Middle}" CornerRadius="20" Margin="2,0,0,0" />
         <!--<Button Grid.Column="2" BindingContext="{Binding ViewState.Right}"/>-->
     </Grid>
     <!--HeightRequest="40"-->
@@ -46,5 +62,5 @@
                     <Label Text="1.4 тыс." VerticalOptions="Center"/>
                 </StackLayout>-->
     <!--<BoxView Style="{StaticResource SeparatorBox}"/>-->
-    <BoxView Style="{StaticResource SeparatorBox}" HeightRequest="10" />
+    <BoxView Style="{StaticResource SeparatorBox}" HeightRequest="10"/>
 </StackLayout>

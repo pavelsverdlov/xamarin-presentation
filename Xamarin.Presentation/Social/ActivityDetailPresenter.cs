@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Presentation.Controls;
 using Xamarin.Presentation.Social.Comments;
@@ -12,7 +13,7 @@ namespace Xamarin.Presentation.Social {
        where TDetailController : Framework.VSVVM.BaseController, IActivityDetailController, new()
        where THeaderController : Framework.VSVVM.BaseController, IActivityHeaderController, new() {
         ActivityDetailPresenter<TDetailController> DetailViewModel { get; }
-        ActivityHeaderPresenter<THeaderController> HeaderViewModel { get; }
+       // ActivityHeaderPresenter<THeaderController> HeaderViewModel { get; }
 
         ListViewPullToRefreshViewModel PullToRefresh { get; }
     }
@@ -37,9 +38,14 @@ namespace Xamarin.Presentation.Social {
         public string AddCommentEntryPlaceholder { get; set; }
 
         public ActivityDetailsViewState() {
-            CommenterIconSource = "person.png";
+           // CommenterIconSource = "person.png";
             AddCommentEntryPlaceholder = "Write a comment ...";
             Comments = new ObservableCollection<CommentViewState>();
+        }
+
+        public void ClearComments() {
+            Comments.Clear();
+            //Push((nameof(Comments), new ObservableCollection<CommentViewState>()));
         }
     }
 
@@ -49,5 +55,6 @@ namespace Xamarin.Presentation.Social {
     //}
     public interface IActivityDetailController : ICommentAddingController {
         Command<CommentViewState> ItemSelectedCommand { get; }
+        ICommand ItemAppeared { get; }
     }
 }

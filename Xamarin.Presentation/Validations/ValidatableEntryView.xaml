@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Presentation.Validations.ValidatableEntryView"
+             xmlns:behaviors="clr-namespace:Xamarin.Presentation.Behaviors"
+             xmlns:converters="clr-namespace:Xamarin.Presentation.Converters">
+
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center">
+            <Entry x:Name="entry" Placeholder="Email" PlaceholderColor="Gray"
+                                   Text="{Binding ViewState.Email, Mode=OneWay}" 
+                                   Margin="0,10,0,0">
+                <Entry.Behaviors>
+                    <behaviors:EventToCommandBehavior EventName="TextChanged"
+							                Command="{Binding Controller.EmailValidate}" 
+                                            CommandParameter="{Binding Source={x:Reference entry}, Path=Text}" />
+                </Entry.Behaviors>
+                <Entry.Triggers>
+                    <!--<DataTrigger TargetType="Entry" 
+                                                 Binding="{Binding ViewState.Validator, Mode=OneWay, Converter={StaticResource IsValidValidation}, ConverterParameter='Email'}" 
+                                                 Value="False">  
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>-->
+                </Entry.Triggers>
+            </Entry>
+            <Label Text="{Binding ViewState.Validator, Mode=OneWay, Converter={StaticResource ErrorValidation}, ConverterParameter='Email'}" 
+                                   Style="{StaticResource ValidationErrorLabelStyle}"/>
+        </StackLayout>
+    </ContentView.Content>
+
+</ContentView>
